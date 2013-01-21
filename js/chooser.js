@@ -5,7 +5,7 @@
 
     init: function() {
       var self = this;
-      
+
       $(".ribbontoggle").click(this.showHide);
       $('.placeholder').each(function(i, v) {
         $(v).bind('click', function() {
@@ -23,31 +23,24 @@
 
     addButtons: function(key, masterLists) {
       var lists = _.where(masterLists, {name: key});
-      var target = '';
 
       if (key == 'UserPlaylists') {
-        target = '#playlistmenu';
-
         _.each(lists, function(v, i) {
-          ViewMaker.makeButton('plbutton', v.data)
+          ViewMaker.make('plbutton', v.data)
             .bind('click', function() {
               Chooser.toggleChosen(this);
-            }).appendTo(target);
+            }).appendTo('#playlistmenu');
         });
       } else if (key == 'Followers' || key == 'Following') {
-        target = '#peoplemenu';
-
-        ViewMaker.makeButton('peoplebutton', lists[0])
+        ViewMaker.make('peoplebutton', lists[0])
           .bind('click', function() {
             Chooser.toggleChosen(this);
-          }).appendTo(target);
+          }).appendTo('#peoplemenu');
       } else if (key == 'TopCharts' || key == 'HeavyRotation') {
-        target = '#playlistmenu';
-
-        ViewMaker.makeButton('plbutton', lists[0])
+        ViewMaker.make('plbutton', lists[0])
           .bind('click', function() {
             Chooser.toggleChosen(this);
-          }).appendTo(target);
+          }).appendTo('#playlistmenu');
       }
     },
 

@@ -7,5 +7,14 @@
 
 .albumgrid {
 	// temporary
-	height: 500px;
+	overflow: hidden;
+	overflow-y: auto;
+	max-height: 600px;
+
+	.albumthumb {
+		float: left;
+		width: 150px;
+		height: 150px;
+		background-size: contain;
+	}
 }

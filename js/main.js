@@ -6,9 +6,14 @@
     },
 
     changeList: function (newListName) {
-      this._removeCurrentList();
       var newList = this.Rdio.pluckFromMasterLists(newListName);
-      //console.log(newList);
+      
+      this._removeCurrentList();
+      ViewMaker.make('viewbox', newList).appendTo('#maincontent');
+
+      _.each(newList.data.albums, function(v, i) {
+        ViewMaker.make('albumthumb', v).appendTo('.albumgrid');
+      });
     },
 
     _rdioSetup: function() {
@@ -19,9 +24,9 @@
 
           var userKey = R.currentUser.get('key');
           self.Rdio.getList('UserPlaylists', userKey, 100, Chooser.addButtons);
-          self.Rdio.getList('Following', userKey, 500, Chooser.addButtons);
-          self.Rdio.getList('Followers', userKey, 500, Chooser.addButtons);
           self.Rdio.getList('HeavyRotation', userKey, 'albums', Chooser.addButtons);
+          //self.Rdio.getList('Following', userKey, 500, Chooser.addButtons);
+          //self.Rdio.getList('Followers', userKey, 500, Chooser.addButtons);
 
           $('.login').remove();
         } else {
@@ -35,7 +40,7 @@
     },
 
     _removeCurrentList: function() {
-      $('.viewbow').remove();
+      $('.viewbox').remove();
     }
   };
 
