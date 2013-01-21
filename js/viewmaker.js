@@ -13,13 +13,13 @@
         var $newElement = $('<div />', {
           'class': command,
           'html': '<div class="showcase">'
-                    +'<div class="viewTitle">' + config.name + '</div>'
                     +'<div class="caseleft">'
                       +'<div class="caseart"></div>'
                       +'<div class="casecommands"></div>'
                     +'</div>'
                     +'<div class="caseright"></div>'
                   +'</div>'
+                  +'<div class="viewTitle">' + config.data.name + '</div>'
                   +'<div class="albumgrid"></div>'
         });
 
@@ -27,7 +27,6 @@
         $newElement = $('<div />', {
           'class': command,
           'id': config.albumKey,
-          'html': config.name,
           'style': 'background-image: url(' +config.icon + ')'
         });
       } 
