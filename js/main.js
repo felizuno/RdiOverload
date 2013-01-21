@@ -2,18 +2,19 @@
   window.AV = {
     init: function() {
       this._rdioSetup();
-      R.ready(function(){AV.Rdio.getList('TopCharts', '', 'Album', Chooser.addButtons)});
+      R.ready(function(){AV.Rdio.getList('TopCharts', 'no key', 'Album', Chooser.addButtons)});
+    },
+
+    changeList: function (newListName) {
+      this._removeCurrentList();
+      var newList = this.Rdio.pluckFromMasterLists(newListName);
+      //console.log(newList);
     },
 
     _rdioSetup: function() {
       var self = this;
       R.ready(function(){
         if (R.authenticated()) {
-          // +++++
-          // .login is a fixed panel that will appear at least until Rdio is ready.
-          // If the user is not authenticated it will show the #authbutton.
-          // If they are already authd it will kick off the playlist loading
-          // +++++
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
 
           var userKey = R.currentUser.get('key');
@@ -31,7 +32,11 @@
           });
         }
       });
-    },  
+    },
+
+    _removeCurrentList: function() {
+      $('.viewbow').remove();
+    }
   };
 
   $(document).ready(function() {

@@ -33,15 +33,15 @@
             content: {
               type: responseParam,
               count: 100,
-              extras: '-*,name,key,trackKeys,artistKey'
+              extras: '-*,albumKey,album,icon,artistKey,artist,name'
             },
             success: function(data) {
-              var fakePlaylist = { 'key': call, 'name': call, 'albums': [] };
+              var mockList = { 'key': call, 'name': call, 'albums': [] };
 
               _.each(data.result, function(v, i) {
-                fakePlaylist.albums.push(v);
+                mockList.albums.push(v);
               });
-              self._pushToMasterLists([fakePlaylist], call, _type);
+              self._pushToMasterLists([mockList], call, _type);
 
               if (_.isFunction(callback)) {
                 callback(call, self.masterLists);
@@ -61,8 +61,11 @@
 
     },
 
-    _resetMasterLists: function () {
-      this.masterLists = [];
+    pluckFromMasterLists: function(name) {
+      var list = _.find(this.masterLists, function(v) {
+        return v.data.name == name;
+      });
+      return list;
     },
 
     _triageCallType: function(call) {
@@ -81,24 +84,54 @@
       if (call == 'Following' || call == 'Followers') {
         _type = 'people';
       } else {
-        _type = 'albums'
+        _type = 'list'
       }
 
       return _type;
     },
 
+    _resetMasterLists: function () {
+      this.masterLists = [];
+    },
+
+    _convertTracksToAlbums: function(data, listName) {
+      var self = this;
+      var albums = [];
+      
+      if (data.trackKeys) {
+        var _keyChain = data.trackKeys.join();
+
+        R.request({
+          method: 'get',
+          content: {
+            keys: _keyChain,
+            extras: '-*,albumKey,album,icon,artistKey,artist,name'
+          },
+          success: function(response) {
+             var list = self.pluckFromMasterLists(data.name);
+             console.log(list);
+             list.data.albums = response.result;
+          } //END Success
+        });
+      }
+    },
+
     _pushToMasterLists: function(array, call, _type) {
-      var __mL = this.masterLists;
+      var self = this;
+
+      var __mL = self.masterLists;
       var __push = function(data) {
         __mL.push({
           'name': call,
-          'type': _type,
           'data': data
         });
       };
 
-      if (_type == 'albums') {
+      if (_type == 'list') {
         _.each(array, function(v, i) {
+          if (!!v.trackKeys) {
+            self._convertTracksToAlbums(v, v.name);
+          }
           __push(v);
         });
       } else if (_type == 'people') {

@@ -4,13 +4,19 @@
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     init: function() {
-      $('#ribbonchooser').slideDown('slow');
+      var self = this;
+      
       $(".ribbontoggle").click(this.showHide);
       $('.placeholder').each(function(i, v) {
         $(v).bind('click', function() {
           Chooser.toggleChosen(this);
         });
       });
+      $('.chooseraction').bind('click', function() {
+        AV.changeList(Chooser.getCurrentChoice());
+      });
+
+      $('#ribbonchooser').slideDown('slow');
     },
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -21,9 +27,9 @@
 
       if (key == 'UserPlaylists') {
         target = '#playlistmenu';
-        
+
         _.each(lists, function(v, i) {
-          ViewMaker.make('plbutton', v.data)
+          ViewMaker.makeButton('plbutton', v.data)
             .bind('click', function() {
               Chooser.toggleChosen(this);
             }).appendTo(target);
@@ -31,14 +37,14 @@
       } else if (key == 'Followers' || key == 'Following') {
         target = '#peoplemenu';
 
-        ViewMaker.make('peoplebutton', lists[0])
+        ViewMaker.makeButton('peoplebutton', lists[0])
           .bind('click', function() {
             Chooser.toggleChosen(this);
           }).appendTo(target);
       } else if (key == 'TopCharts' || key == 'HeavyRotation') {
         target = '#playlistmenu';
 
-        ViewMaker.make('plbutton', lists[0])
+        ViewMaker.makeButton('plbutton', lists[0])
           .bind('click', function() {
             Chooser.toggleChosen(this);
           }).appendTo(target);
@@ -48,7 +54,7 @@
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     getCurrentChoice: function() {
-      var _listName = $('.playlistmenu .chosen').text();
+      var _listName = $('#playlistmenu .chosen').text();
       return _listName;
     },
 
@@ -79,7 +85,6 @@
 
     _toggleVisibility: function(buttonbar) {
       $(buttonbar).children().not('.chosen').slideToggle('fast');
-      $('.chooseprompt').toggle().siblings().toggle();
     }
   };
 })();
