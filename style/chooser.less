@@ -1,0 +1,47 @@
+@bl: #3BA7BF;
+@dg: #393939;
+@lg: #575757;
+@cr: #F2EFC4;
+@wh: #F2F2F2;
+
+.box_shadow {
+  -webkit-box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.6); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+          box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.6); /* Opera 10.5, IE9+, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+#ribbonchooser {
+  position: fixed;
+  z-index: 2;
+  background-color: @cr;
+  padding-top: 58px;
+  margin: 0 6px;
+  border-radius: 20px;
+  .box_shadow;
+  text-align: center;
+  font-size: 22px;
+
+  .choosermenu {
+    margin-bottom: 5px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
+
+  }
+
+  .button {
+    font-size: 16px;
+    padding: 0 10px;
+    margin: 3px auto;
+    text-align: center;
+    cursor: pointer;
+  }
+  .ribbonfooter {
+    height: 22px;
+    color: @wh;
+    background-color: @lg;
+    box-shadow: 0px 1px 2px 0 #777;
+  }
+
+  .ribbontoggle {
+    padding: 0 34px 0 0;
+    width: 100%;
+  }
+}

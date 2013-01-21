@@ -1,0 +1,57 @@
+@bl: #3BA7BF;
+@dg: #393939;
+@lg: #575757;
+@cr: #F2EFC4;
+@wh: #F2F2F2;
+
+.box_shadow {
+  -webkit-box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.7); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+          box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.7); /* Opera 10.5, IE9+, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+html {
+  background-color: @wh;
+  background-image: url('/img/blackorchid.png');
+  color: @dg;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 12px;
+}
+#header {
+  position: fixed;
+  background-color: @bl;
+  z-index: 10;
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+  .box_shadow;
+
+  #settingsbutton {
+    float: right;
+    background-image: url('/img/gear.png');
+    background-size: contain;
+    height: 50px;
+    width: 50px; 
+  }
+  
+  .titlecontainer {
+    display: inline;
+    float: left;
+    margin-left: 12px;
+    color: @wh;
+    text-shadow: 1px 1px 0px @lg;
+
+    h1, h2 {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+
+

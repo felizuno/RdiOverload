@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>RdiOverload</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="Author" content="Kevin Ewing" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="lib/normalize.css">
+    <link rel="stylesheet/less" type="text/css" href="style/main.less">
+    <link rel="stylesheet/less" type="text/css" href="style/chooser.less">
+    <link rel="stylesheet/less" type="text/css" href="style/showcase.less">
+    <script src="https://rdio.com/api/api.js?client_id=gQ5TpN7GOjeUbuUlDjmx6A"></script>
+    <script src="/lib/underscore-min.js"></script>
+    <script src="/lib/jquery-1.8.2.min.js"></script>
+    <script src="/lib/less-1.3.0.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/chooser.js"></script>
+	<script src="js/rdio.js"></script>
+	<script src="js/lastfm.js"></script>
+	<script src="js/viewmaker.js"></script>
+
+</head>
+<body>
+	<div id="header">
+		<div class="appmenu" style="display:none;">
+			<input type="button" class="menuoption" id="rdiobutton" />
+		</div>
+		<div class="titlecontainer">
+			<h1>RdiOverload</h1>
+			<h2>Powered by Rdio and Last.FM</h2>
+		</div>
+
+		<div id="settingsbutton"></div>
+	</div>
+
+	<!-- START Ribbon Chooser -->
+	<div id="ribbonchooser" style="display:none;">
+		<div class="choosermenu" id="peoplemenu">
+			<div class="peoplebutton button placeholder chosen"></div>
+		</div>
+		<div class="choosermenu" id="playlistmenu">
+			<div class="plbutton button placeholder chosen">Playlists:</div>
+		</div>
+		<div class="ribbonfooter">
+			<div class="chooseprompt button">Playlist:</div>
+		</div>
+		<div class="ribbontoggle shown">- - -</div> 
+	</div>
+	<!-- END Ribbon Chooser -->
+
+	<div class="login">
+		<h1>Welcome to RdiOverload!</h1>
+		<div id="authbutton" class="rdio"></div>
+		<p>RdiOverload helps you learn about the artists and albums in your <span class="rdio">Rdio</span> playlists.</p>
+	</div>
+</body>
+</html>
