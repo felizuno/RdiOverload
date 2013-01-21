@@ -57,16 +57,11 @@
           });
         });
       } else if (call == 'TracksForAlbum') {
-
-        if( _.isArray(key)) {
-          key = key.join();
-        }
-
         R.request({
           method: 'get',
           content: {
             keys: key,
-            extras: '-*,duration,trackNum,name,key,trackKeys'
+            extras: 'tracks'
           },
           success: function(data) {
             if (_.isFunction(callback)) {
