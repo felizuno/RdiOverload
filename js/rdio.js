@@ -56,6 +56,24 @@
             }
           });
         });
+      } else if (call == 'TracksForAlbum') {
+
+        if( _.isArray(key)) {
+          key = key.join();
+        }
+
+        R.request({
+          method: 'get',
+          content: {
+            keys: key,
+            extras: '-*,duration,trackNum,name,key,trackKeys'
+          },
+          success: function(data) {
+            if (_.isFunction(callback)) {
+              callback(call, data.result[key]);
+            }
+          }
+        });
       }
     },
 
@@ -68,12 +86,12 @@
 
     },
 
-
 // ---------------------------------------------------------------
 // 
 //   LOCALS ONLY!
 // 
 // ---------------------------------------------------------------
+
     _pushToMasterLists: function(array, call, _type) {
       var self = this;
 
@@ -152,6 +170,19 @@
           } //END Success
         });
       }
+    },
+
+    _convertAlbumsToTracks: function(_key) {
+      R.request({
+        method: 'get',
+        content: {
+          keys: key,
+          extras: '-*,trackKeys'
+        },
+        success: function(data) {
+          self._getTrackinfo(data.result[key].trackKeys);
+        }
+      });
     }
   };
 })();

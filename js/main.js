@@ -6,22 +6,10 @@
     },
 
     changeList: function (newListName) {
-      var newList = this.Rdio.pluckFromMasterLists(newListName);
-      
+      var newList = this.Rdio.pluckFromMasterLists(newListName);      
       this._removeCurrentList();
       ViewMaker.make('viewbox', newList).appendTo('#maincontent');
-
-      _.each(newList.data.albums, function(v, i) {
-        ViewMaker.make('albumthumb', v).bind('click', function() {
-          AV.showcase(this, newList);
-        }).appendTo('.albumgrid');
-      });
-    },
-
-    showcase: function(albumThumb, list) {
-      var _key = $(albumThumb).attr('id');
-      var _album = _.find(list.data.albums, function(album) { return album.albumKey == _key; });
-      $('.caseart').css('background-image', 'url(' + _album.icon.replace('-200.jpg', '-400.jpg'));
+      AV.showcase.newShowcase(newList);
     },
 
     _rdioSetup: function() {
