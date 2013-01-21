@@ -6,26 +6,9 @@
       var self = this;
       var _method = self._triageCallType(call);
       var _type = self._triageResponseType(call);
-      var _pushToMasterLists = function(array) {
-        var __mL = self.masterLists;
-        var __push = function(data) {
-          __mL.push({
-            'name': call,
-            'type': _type,
-            'data': data
-          });
-        };
+      // Local pushing function
 
-        if (_type == 'albums') {
-          _.each(array, function(v, i) {
-            __push(v);
-          });
-        } else if (_type == 'people') {
-          __push(array);
-        }
-      };
-
-
+      // Begin Rdio calls
       if (call == "UserPlaylists" || call == "Following" || call == 'Followers') {
         R.ready(function() {
           R.request({
@@ -36,7 +19,7 @@
               extras: '-*,name,key,trackKeys'
             },
             success: function(data) {
-              _pushToMasterLists(data.result);
+              self._pushToMasterLists(data.result, call, _type);
               if (_.isFunction(callback)) {
                 callback(call, self.masterLists);
               }
@@ -58,7 +41,7 @@
               _.each(data.result, function(v, i) {
                 fakePlaylist.albums.push(v);
               });
-              _pushToMasterLists([fakePlaylist]);
+              self._pushToMasterLists([fakePlaylist], call, _type);
 
               if (_.isFunction(callback)) {
                 callback(call, self.masterLists);
@@ -84,7 +67,6 @@
 
     _triageCallType: function(call) {
       var _method;
-
       if (call == 'Following' || call == 'Followers') {
         _method = 'user' + call;
       } else {
@@ -96,7 +78,6 @@
 
     _triageResponseType: function(call) {
       var _type;
-
       if (call == 'Following' || call == 'Followers') {
         _type = 'people';
       } else {
@@ -104,6 +85,25 @@
       }
 
       return _type;
+    },
+
+    _pushToMasterLists: function(array, call, _type) {
+      var __mL = this.masterLists;
+      var __push = function(data) {
+        __mL.push({
+          'name': call,
+          'type': _type,
+          'data': data
+        });
+      };
+
+      if (_type == 'albums') {
+        _.each(array, function(v, i) {
+          __push(v);
+        });
+      } else if (_type == 'people') {
+        __push(array);
+      }
     }
   };
 })();

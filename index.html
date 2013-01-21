@@ -23,7 +23,6 @@
 <body>
 	<div id="header">
 		<div class="appmenu" style="display:none;">
-			<input type="button" class="menuoption" id="rdiobutton" />
 		</div>
 		<div class="titlecontainer">
 			<h1>RdiOverload</h1>
@@ -48,10 +47,24 @@
 	</div>
 	<!-- END Ribbon Chooser -->
 
-	<div class="login">
-		<h1>Welcome to RdiOverload!</h1>
+	<div id="loginpanel" class="panel">
+		<div class="titlecontainer"><h1>Welcome to RdiOverload!</h1></div>
 		<div id="authbutton" class="rdio"></div>
 		<p>RdiOverload helps you learn about the artists and albums in your <span class="rdio">Rdio</span> playlists.</p>
+	</div>
+	<!-- START Panels -->
+	<div id="userpanel" class="panel"></div>
+	<div id="settingspanel" class="panel"></div>
+	<div id="biopanel" class="panel"></div>
+	<!-- END Panels -->
+
+	<div id="maincontent">
+		<div class="viewbox">
+			<div class="showcase">
+				
+			</div>
+			<div class="albumgrid"></div>
+		</div>
 	</div>
 </body>
 </html>
