@@ -2,21 +2,22 @@
   AV.Rdio = {
     masterLists: [], // ONLY WRITE FROM getList, ONLY GET VIA pluckFromMasterlists
 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     pluckFromMasterLists: function(name) {
       var list = _.find(this.masterLists, function(v) {
         return v.data.name == name;
       });
       return list;
     },
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     getList: function(call, key, responseParam, callback) {
       var self = this;
       var _method = self._triageCallType(call);
       var _type = self._triageResponseType(call);
-      // Local pushing function
 
-      // Begin Rdio calls
+      // ----------------------------------------------------
       if (call == "UserPlaylists" || call == "Following" || call == 'Followers') {
+      // ----------------------------------------------------
         R.ready(function() {
           R.request({
             method: _method,
@@ -33,7 +34,9 @@
             }
           });
         });
+      // ----------------------------------------------------
       } else if (call == 'TopCharts' || call == "HeavyRotation" ) {
+      // ----------------------------------------------------
         R.ready(function() {
           R.request({
             method: _method,
@@ -56,7 +59,9 @@
             }
           });
         });
+      // ----------------------------------------------------
       } else if (call == 'TracksForAlbum') {
+      // ----------------------------------------------------
         R.request({
           method: 'get',
           content: {
@@ -71,22 +76,11 @@
         });
       }
     },
-
-    // -----
-    playback: function() {
-
-    },
-
-    modify: function () {
-
-    },
-
 // ---------------------------------------------------------------
 // 
-//   LOCALS ONLY!
+//              LOCALS ONLY!
 // 
 // ---------------------------------------------------------------
-
     _pushToMasterLists: function(array, call, _type) {
       var self = this;
 
@@ -109,11 +103,11 @@
         __push(array);
       }
     },
-
+// ---------------------------------------------------------------
     _resetMasterLists: function () {
       this.masterLists = [];
     },
-
+// ---------------------------------------------------------------
     _triageCallType: function(call) {
       var _method;
       if (call == 'Following' || call == 'Followers') {
@@ -124,7 +118,7 @@
 
       return _method
     },
-
+// ---------------------------------------------------------------
     _triageResponseType: function(call) {
       var _type;
       if (call == 'Following' || call == 'Followers') {
@@ -135,7 +129,7 @@
 
       return _type;
     },
-
+// ---------------------------------------------------------------
     _convertTracksToAlbums: function(data, listName) {
       var self = this;
       var albums = [];
@@ -165,19 +159,6 @@
           } //END Success
         });
       }
-    },
-
-    _convertAlbumsToTracks: function(_key) {
-      R.request({
-        method: 'get',
-        content: {
-          keys: key,
-          extras: '-*,trackKeys'
-        },
-        success: function(data) {
-          self._getTrackinfo(data.result[key].trackKeys);
-        }
-      });
     }
   };
 })();

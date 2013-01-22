@@ -2,14 +2,14 @@
   window.AV = {
     init: function() {
       this._rdioSetup();
-      R.ready(function(){AV.Rdio.getList('TopCharts', 'no key', 'Album', Chooser.addButtons)});
+      R.ready(function(){AV.Rdio.getList('TopCharts', 'no key', 'Album', AV.Chooser.addButtons)});
     },
 
     changeList: function (newListName) {
       var newList = this.Rdio.pluckFromMasterLists(newListName);      
       this._removeCurrentList();
       ViewMaker.make('viewbox', newList).appendTo('#maincontent');
-      AV.showcase.newShowcase(newList);
+      AV.Showcase.newShowcase(newList);
     },
 
     _rdioSetup: function() {
@@ -19,10 +19,10 @@
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
 
           var userKey = R.currentUser.get('key');
-          self.Rdio.getList('UserPlaylists', userKey, 100, Chooser.addButtons);
-          self.Rdio.getList('HeavyRotation', userKey, 'albums', Chooser.addButtons);
-          //self.Rdio.getList('Following', userKey, 500, Chooser.addButtons);
-          //self.Rdio.getList('Followers', userKey, 500, Chooser.addButtons);
+          self.Rdio.getList('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
+          self.Rdio.getList('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
+          //self.Rdio.getList('Following', userKey, 500, AV.Chooser.addButtons);
+          //self.Rdio.getList('Followers', userKey, 500, AV.Chooser.addButtons);
 
           $('.login').remove();
         } else {
@@ -42,7 +42,7 @@
 
   $(document).ready(function() {
     AV.init();
-    Chooser.init();
+    AV.Chooser.init();
   });
 })();
 

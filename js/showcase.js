@@ -1,39 +1,43 @@
 (function() {
-  AV.showcase = {
+  AV.Showcase = {
     albumRdioData: {},
-    rdioActions: ['Play Album', 'Queue Album'],
-    optionalActions: ['Remove from Playlist'],
 
-    newShowcase: function(newList) {
+    newShowcase: function(masterListObject) {
       var self = this;
       albumRdioData = {};
 
-      _.each(newList.data.albums, function(v, i) {
+      _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
-          AV.showcase.setUpShowcase(this, newList);
+          AV.Showcase.changeFeaturedAlbum(this, masterListObject);
         }).appendTo('.albumgrid');
       });
     },
 
-    setUpShowcase: function(albumThumb, list) {
-      var self = this;
-      $('.caseright').children().remove();
-      var newAlbumKey = $(albumThumb).attr('id');
-      var _albumData = _.find(list.data.albums, function(album) { return album.albumKey == newAlbumKey; });
+    changeFeaturedAlbum: function(albumThumb, masterListObject) {
+      $('.caseright').children().add('.rdioaction').remove();
       
-      //self._addRdioActions(self.rdioActions, newAlbumKey);
-
+      var self = this;
+      var rdioKey = $(albumThumb).attr('id');
+      var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == newAlbumRdioKey; });
+      
       $('.caseart').css('background-image', 'url(' + _albumData.icon.replace('-200.jpg', '-400.jpg'));
-     
-      AV.Rdio.getList('TracksForAlbum', newAlbumKey, 'tracks', self._addTrackList);
+      self._addRdioActions(rdioKey);
+      AV.Rdio.getList('TracksForAlbum', rdioKey, 'tracks', self._addTrackList);
     },
 
-    _addRdioActions: function(options, albumKey) {
-
+    _addRdioActions: function(albumKey) {
+      ViewMaker.make('rdioaction', {'name':'Play Album'}).bind('click', function() {
+        R.player.queue.addPlayingSource();
+        R.player.play({source: albumKey});
+      }).show().appendTo('.casecommands');
+      
+      ViewMaker.make('rdioaction', {'name':'Queue Album'}).bind('click', function() {
+        R.player.queue.add(albumKey);
+      }).show().appendTo('.casecommands');
     },
 
     _addTrackList: function(call, album) {
-      this.albumRdioData = album;
+      this.albumRdioData = album; // refer to this later for other data needs?
       _.each(album.tracks, function(v, i) {
           ViewMaker.make('track', v).appendTo('.caseright');
       });

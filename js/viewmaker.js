@@ -2,7 +2,7 @@
   window.ViewMaker = {
     make: function(command, config) {
 
-      if (command == 'plbutton' || command == 'peoplebutton') {
+      if (command == 'plbutton' || command == 'peoplebutton' || command == 'rdioaction') {
         var $newElement = $('<div />', {
           'class': 'button ' + command,
           'html': config.name,

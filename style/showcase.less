@@ -10,47 +10,60 @@
     margin-bottom: 40px;
     overflow: hidden;
 
-	.caseleft {
-		float: left;
+  .caseleft {
+    float: left;
 
-		.caseart {
-			height: 400px;
-			width: 400px;
-		}
-	}
+    .caseart {
+      height: 400px;
+      width: 400px;
+    }
+  }
 
-	.caseright {
-		height: 400px;
-		overflow: auto;
-		color: @wh;
+  .caseright {
+    height: 400px;
+    overflow: auto;
+    color: @wh;
 
-		:nth-child(even) {
-			background-color: rgba(255, 255, 255, 0.12);
-		}
+    :nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.12);
+    }
 
-		.track {
-			padding: 2px 20px;
-			margin: 3px 10px;
-			text-align: center;
+    .track {
+      padding: 2px 20px;
+      margin: 3px 10px;
+      text-align: center;
 
-			span {
-				background-color: none;
-				color: @bl;
-				font-size: 11px;
-			}
-		}
-	}
+      span {
+        background-color: none;
+        color: @bl;
+        font-size: 11px;
+      }
+    }
+  }
+
+  .casecommands {
+    padding: 10px;
+
+    .rdioaction {
+      float: right;
+      height: 30px;
+      width: 120px;
+      background-color: @cr;
+      border-radius: 10px;
+      display: inline;
+    }
+  }
 }
 
 .albumgrid {
-	overflow: hidden;
-	overflow-y: auto;
-	max-height: 600px;
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 600px;
 
-	.albumthumb {
-		float: left;
-		width: 150px;
-		height: 150px;
-		background-size: contain;
-	}
+  .albumthumb {
+    float: left;
+    width: 150px;
+    height: 150px;
+    background-size: contain;
+  }
 }

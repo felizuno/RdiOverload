@@ -21,6 +21,13 @@
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    getCurrentChoice: function() {
+      var _listName = $('#playlistmenu .chosen').text();
+      return _listName;
+    },
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     addButtons: function(key, masterLists) {
       var lists = _.where(masterLists, {name: key});
 
@@ -42,13 +49,6 @@
             AV.Chooser.toggleChosen(this);
           }).appendTo('#playlistmenu');
       }
-    },
-
-    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    getCurrentChoice: function() {
-      var _listName = $('#playlistmenu .chosen').text();
-      return _listName;
     },
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
