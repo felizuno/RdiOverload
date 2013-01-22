@@ -14,12 +14,9 @@
           'class': command,
           'html': '<div class="showcase">'
                     +'<div class="albumtitle"></div>'
-                    +'<div class="caseleft">'
-                      +'<div class="caseart"></div>'
-                    +'</div>'
+                    +'<div class="caseleft"><div class="caseart"></div></div>'
                     +'<div class="caseright"></div>'
-                    +'<div class="casecommands"></div>'
-                  +'</div>'
+                    +'<div class="casecommands"></div></div>'
                   +'<div class="listtitle">' + config.data.name + '</div>'
                   +'<div class="albumgrid"></div>'
         });

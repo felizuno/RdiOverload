@@ -45,5 +45,3 @@
     AV.Chooser.init();
   });
 })();
-
-
