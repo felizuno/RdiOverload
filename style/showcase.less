@@ -1,5 +1,5 @@
 @bl: #3BA7BF;
-@dg: #393939;
+@dg: #343434;
 @lg: #575757;
 @cr: #F2EFC4;
 @wh: #F2F2F2;
@@ -11,36 +11,39 @@
   overflow: hidden;
 
   .albumtitle {
-    margin: 0 auto;
+    margin-bottom: 20px;
     text-align: center;
-    font-size: 28px;
+    font-size: 50px;
     font-weight: bold;
     color: @bl;
+    font-family: 'Banana Brick';
   }
 
   .caseleft {
     float: left;
 
     .caseart {
-      height: 400px;
-      width: 400px;
+      height: 600px;
+      width: 600px;
     }
   }
 
   .caseright {
-    height: 400px;
+    height: 500px;
     min-width: 400px;
     overflow: auto;
     color: @wh;
 
     :nth-child(even) {
       background-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 1px 1px 1px #000;
     }
 
     .track {
-      padding: 2px 20px;
+      padding: 4px 20px;
       margin: 3px 10px;
       text-align: center;
+      text-shadow: 1px 1px 0 @dg;
 
       span {
         background-color: none;
@@ -56,12 +59,24 @@
     .rdioaction {
       float: right;
       height: 30px;
-      width: 120px;
-      background-color: @cr;
-      border-radius: 10px;
-      display: inline;
+      margin-right: 40px;
+      padding: 40px 10px 0 0;
+      text-align: right;
+      font-family: 'Banana Brick';
+      font-size: 16px;
+      width: 160px;
+      font-weight: bold;
+      background-color: @dg;
+      color: @cr;
+      box-shadow: 3px 3px 0 0 @bl;
     }
   }
+}
+
+.listtitle{
+    text-align: center;
+    font-family: 'Banana Brick';
+    font-size: 48px;
 }
 
 .albumgrid {
