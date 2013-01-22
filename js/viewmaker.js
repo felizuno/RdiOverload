@@ -13,7 +13,7 @@
         var $newElement = $('<div />', {
           'class': command,
           'html': '<div class="showcase">'
-                    +'<div class="albumitle"></div>'
+                    +'<div class="albumtitle"></div>'
                     +'<div class="caseleft">'
                       +'<div class="caseart"></div>'
                     +'</div>'

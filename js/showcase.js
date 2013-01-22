@@ -18,10 +18,11 @@
       
       var self = this;
       var rdioKey = $(albumThumb).attr('id');
-      var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == newAlbumRdioKey; });
+      var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == rdioKey; });
       
       $('.caseart').css('background-image', 'url(' + _albumData.icon.replace('-200.jpg', '-400.jpg'));
       self._addRdioActions(rdioKey);
+      $('.albumtitle').text(_albumData.artist + ' - ' + _albumData.album);
       AV.Rdio.getList('TracksForAlbum', rdioKey, 'tracks', self._addTrackList);
     },
 
