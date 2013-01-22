@@ -1,5 +1,5 @@
 (function(){
-  window.Chooser = {
+  AV.Chooser = {
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -9,11 +9,11 @@
       $(".ribbontoggle").click(this.showHide);
       $('.placeholder').each(function(i, v) {
         $(v).bind('click', function() {
-          Chooser.toggleChosen(this);
+          self.toggleChosen(this);
         });
       });
       $('.chooseraction').bind('click', function() {
-        AV.changeList(Chooser.getCurrentChoice());
+        AV.changeList(self.getCurrentChoice());
       });
 
       $('#ribbonchooser').slideDown('slow');
@@ -28,18 +28,18 @@
         _.each(lists, function(v, i) {
           ViewMaker.make('plbutton', v.data)
             .bind('click', function() {
-              Chooser.toggleChosen(this);
+              AV.Chooser.toggleChosen(this);
             }).appendTo('#playlistmenu');
         });
       } else if (key == 'Followers' || key == 'Following') {
         ViewMaker.make('peoplebutton', lists[0])
           .bind('click', function() {
-            Chooser.toggleChosen(this);
+            AV.Chooser.toggleChosen(this);
           }).appendTo('#peoplemenu');
       } else if (key == 'TopCharts' || key == 'HeavyRotation') {
         ViewMaker.make('plbutton', lists[0])
           .bind('click', function() {
-            Chooser.toggleChosen(this);
+            AV.Chooser.toggleChosen(this);
           }).appendTo('#playlistmenu');
       }
     },
