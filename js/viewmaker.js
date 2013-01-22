@@ -32,9 +32,20 @@
         });
 
       } else if (command == 'track') {
+        var _name = config.name.replace('(', '<span>').replace(')', '</span>');
+
+        _length = parseInt(config.duration);
+        _min = Math.floor(_length / 60);
+        _sec = Math.ceil(_length % 60);
+        if (_sec < 10) {
+          _sec = '0' + _sec;
+        }
+        _duration = '( ' + _min + ':' + _sec + ' )';
+
         var $newElement = $('<div />', {
           'class': 'button ' + command,
-          'html': config.name.replace('(', '<span>').replace(')', '</span>')
+          'id': config.key,
+          'html': config.trackNum + '. ' + config.artist + ' - ' + _name + '   ' + _duration
         });
       }
       // ENDIF
