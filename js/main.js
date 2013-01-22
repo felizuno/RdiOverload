@@ -3,6 +3,15 @@
     init: function() {
       this._rdioSetup();
       R.ready(function(){AV.Rdio.getList('TopCharts', 'no key', 'Album', AV.Chooser.addButtons)});
+      $('.close').each(function(i, v) {
+        $(v).bind('click', function() {
+          $(this).parent().parent().hide();
+        });
+      });
+
+      $('#header').find('.titlecontainer').bind('click', function() {
+        $('#loginpanel').show();
+      });
     },
 
     changeList: function (newListName) {
@@ -16,6 +25,12 @@
       var self = this;
       R.ready(function(){
         if (R.authenticated()) {
+          $('#authbutton').html('Dive in').show()
+            .bind('click', function() {
+              self.Chooser.init();
+              $('#loginpanel').hide();
+          });
+
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
 
           var userKey = R.currentUser.get('key');
@@ -23,11 +38,9 @@
           self.Rdio.getList('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
           //self.Rdio.getList('Following', userKey, 500, AV.Chooser.addButtons);
           //self.Rdio.getList('Followers', userKey, 500, AV.Chooser.addButtons);
-
-          $('.login').remove();
         } else {
           // Add the #authbutton only if they need it, since login will always show at first
-          $('.login').find('#authbutton').html('Click to authenticate with Rdio').show()
+          $('#authbutton').html('Click to authenticate with Rdio').show()
             .bind('click', function() {
               R.authenticate(self._rdioSetup);
           });
@@ -42,6 +55,5 @@
 
   $(document).ready(function() {
     AV.init();
-    AV.Chooser.init();
   });
 })();

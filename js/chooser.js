@@ -15,8 +15,11 @@
       $('.chooseraction').bind('click', function() {
         AV.changeList(self.getCurrentChoice());
       });
+      $('#authbutton').unbind('click').bind('click', function() {
+        $('#loginpanel').hide();
+      });
 
-      $('#ribbonchooser').slideDown('slow');
+      $('#ribbonchooser').slideDown('slow'); 
     },
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
