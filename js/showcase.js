@@ -22,6 +22,11 @@
       
       $('.caseart').css('background-image', 'url(' + _albumData.icon.replace('-200.jpg', '-600.jpg'));
       self._addRdioActions(rdioKey);
+  
+      ViewMaker.make('rdioaction', {'name':'Artist Info'}).bind('click', function() {
+          AV.showBio(_albumData.artist);
+        }).show().appendTo('.casecommands');
+
       $('.albumtitle').text(_albumData.artist + ' - ' + _albumData.album);
       AV.Rdio.getList('TracksForAlbum', rdioKey, 'tracks', self._addTrackList);
     },

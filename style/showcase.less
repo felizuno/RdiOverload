@@ -59,17 +59,17 @@
 
     .rdioaction {
       float: right;
-      height: 30px;
-      margin-right: 40px;
+      height: 24px;
+      margin-right: 10px;
       padding: 40px 10px 0 0;
       text-align: right;
       font-family: 'Banana Brick';
-      font-size: 16px;
-      width: 160px;
-      font-weight: bold;
+      font-size: 14px;
+      width: 105px;
       background-color: @dg;
       color: @cr;
       box-shadow: 3px 3px 0 0 @bl;
+      text-shadow: 1px 1px 0 #000;
     }
   }
 }
@@ -91,5 +91,38 @@
     width: 150px;
     height: 150px;
     box-shadow: 0 0 2px #000
+  }
+}
+
+#biopanel {
+  position: absolute;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.9);
+  top: 100px;
+  left: 60px;
+  width: 90%;
+  color: @wh;
+  font-size: 18px;
+  font-family: 'Intuitive';
+
+  .titlecontainer {
+    float: none;
+   
+    h1 {
+      display: inline;
+      color: @bl;
+    }
+  }
+
+  .close {
+    display: inline;
+    float: right;
+    margin: 10px 15px 0 0;
+  }
+
+  .panelbody {
+    margin: 20px 12px;
+    text-shadow: 1px 1px 0 #000;
+    text-transform: uppercase;
   }
 }
