@@ -1,10 +1,17 @@
+@bl: #3BA7BF;
+@dg: #393939;
+@lg: #575757;
+@cr: #F2EFC4;
+@wh: #F2F2F2;
+
 .showcase {
     background-color: rgba(255, 255, 255, 0.12);
     padding: 20px;
     margin-bottom: 40px;
+    overflow: hidden;
 
 	.caseleft {
-		display: inline;
+		float: left;
 
 		.caseart {
 			height: 400px;
@@ -13,8 +20,25 @@
 	}
 
 	.caseright {
-		width: 100%;
-		max-width: 800px;
+		height: 400px;
+		overflow: auto;
+		color: @wh;
+
+		:nth-child(even) {
+			background-color: rgba(255, 255, 255, 0.12);
+		}
+
+		.track {
+			padding: 2px 20px;
+			margin: 3px 10px;
+			text-align: center;
+
+			span {
+				background-color: none;
+				color: @bl;
+				font-size: 11px;
+			}
+		}
 	}
 }
 

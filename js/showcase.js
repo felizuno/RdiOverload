@@ -1,6 +1,8 @@
 (function() {
   AV.showcase = {
     albumRdioData: {},
+    rdioActions: ['Play Album', 'Queue Album'],
+    optionalActions: ['Remove from Playlist'],
 
     newShowcase: function(newList) {
       var self = this;
@@ -15,19 +17,25 @@
 
     setUpShowcase: function(albumThumb, list) {
       var self = this;
-      var _key = $(albumThumb).attr('id');
-      var _album = _.find(list.data.albums, function(album) { return album.albumKey == _key; });
+      $('.caseright').children().remove();
+      var newAlbumKey = $(albumThumb).attr('id');
+      var _albumData = _.find(list.data.albums, function(album) { return album.albumKey == newAlbumKey; });
+      
+      //self._addRdioActions(self.rdioActions, newAlbumKey);
 
-      AV.Rdio.getList('TracksForAlbum', _album.albumKey, 'tracks', self._addTrackList);
-      $('.caseart').css('background-image', 'url(' + _album.icon.replace('-200.jpg', '-400.jpg'));
+      $('.caseart').css('background-image', 'url(' + _albumData.icon.replace('-200.jpg', '-400.jpg'));
+     
+      AV.Rdio.getList('TracksForAlbum', newAlbumKey, 'tracks', self._addTrackList);
+    },
+
+    _addRdioActions: function(options, albumKey) {
 
     },
 
     _addTrackList: function(call, album) {
       this.albumRdioData = album;
       _.each(album.tracks, function(v, i) {
-          ViewMaker.make('track', v).show().appendTo('.caseright');
-        })
+          ViewMaker.make('track', v).appendTo('.caseright');
       });
     }
   };
