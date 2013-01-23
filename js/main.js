@@ -4,15 +4,26 @@
       this._rdioSetup();
 
       R.ready(function(){AV.Rdio.getList('TopCharts', 'no key', 'Album', AV.Chooser.addButtons)});
-      
+    
+
+      $('#header').find('.titlecontainer').bind('click', function() {
+        $('.viewbox').hide()
+        $('#loginpanel').show();
+      });
+
+      $('#help').bind('click', function() {
+        $(this).children().slideToggle();
+      });
+
+      this.bindCloseButtons();
+    },
+
+    bindCloseButtons: function() {
       $('.close').each(function(i, v) {
         $(v).bind('click', function() {
           $(this).parent().parent().hide();
+          $('.viewbox').show();
         });
-      });
-
-      $('#header').find('.titlecontainer').bind('click', function() {
-        $('#loginpanel').show();
       });
     },
 
@@ -30,8 +41,10 @@
       
       $.getJSON(url, function(data) {
         self.loading = false;
-        var bio = data.artist.bio.content.replace('<a', '<a target="_blank"');
+        // BELOW: RAMMING THE DIV, should issue a viewmaker command if bio > 1500 characters
+        var bio = data.artist.bio.content.replace('<a', '<a target="_blank"') + '<div class="close button">[ CLOSE ]</div>';
         $('#biopanel').show().find('.panelbody').html(bio);
+        AV.bindCloseButtons();
       });
     },
 
