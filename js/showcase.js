@@ -9,6 +9,7 @@
       _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
           AV.Showcase.changeFeaturedAlbum(this, masterListObject);
+          window.scrollTo(0, 0);
         }).appendTo('.albumgrid');
       });
     },
