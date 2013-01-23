@@ -10,7 +10,7 @@
       return list;
     },
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    getList: function(call, key, responseParam, callback) {
+    get: function(call, key, responseParam, callback) {
       var self = this;
       var _method = self._triageCallType(call);
       var _type = self._triageResponseType(call);
@@ -76,6 +76,28 @@
         });
       }
     },
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+player: function(call, key, callback) {
+  
+  if (call == 'play') {
+    // ----------
+    var _k = key[0];
+    if (_k == 'a' || _k == 'ca') {R.player.queue.addPlayingSource();}
+    R.player.play({source: key});
+    // ----------
+  } else if (call == 'queue') {
+    // ----------
+    R.player.queue.add(key);
+    // ----------
+  } else if (call == 'queueNext') {
+    if (!key.length > 1) {
+      
+    } else {
+      
+    }
+  }
+},
+
 // ---------------------------------------------------------------
 // 
 //              LOCALS ONLY!

@@ -2,20 +2,29 @@
   window.AV = {
     init: function() {
       this._rdioSetup();
+      this.bindCloseButtons();
 
-      R.ready(function(){AV.Rdio.getList('TopCharts', 'no key', 'Album', AV.Chooser.addButtons)});
-    
+      R.ready(function(){
+        AV.Rdio.get('TopCharts', 'no key', 'Album', AV.Chooser.addButtons)
+        R.player.on('change:playingTrack', function(track) {
+          console.log(track);
+          var newTrack = track.attributes;
+            $('#playertrack')
+              .css('background-image', 'url(' + newTrack.icon +')')
+              .html(newTrack.artist + '<br>' + newTrack.name);
+        });
+      });
 
       $('#header').find('.titlecontainer').bind('click', function() {
-        $('.viewbox').hide()
+        $('.viewbox').hide();
         $('#loginpanel').show();
       });
 
-      $('#help').bind('click', function() {
-        $(this).children().slideToggle();
+      $('#help').add('#nowplaying').each( function(i, v) {
+        $(v).bind('click', function() {
+          $(this).children().slideToggle();
+        });
       });
-
-      this.bindCloseButtons();
     },
 
     bindCloseButtons: function() {
@@ -61,10 +70,10 @@
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
 
           var userKey = R.currentUser.get('key');
-          AV.Rdio.getList('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
-          AV.Rdio.getList('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
-          //AV.Rdio.getList('Following', userKey, 500, AV.Chooser.addButtons);
-          //AV.Rdio.getList('Followers', userKey, 500, AV.Chooser.addButtons);
+          AV.Rdio.get('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
+          AV.Rdio.get('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
+          //AV.Rdio.get('Following', userKey, 500, AV.Chooser.addButtons);
+          //AV.Rdio.get('Followers', userKey, 500, AV.Chooser.addButtons);
         } else {
           // Add the #authbutton only if they need it, since login will always show at first
           $('#authbutton').html('Click to authenticate with Rdio').show()

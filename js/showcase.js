@@ -28,7 +28,8 @@
         }).show().appendTo('.casecommands');
 
       $('.albumtitle').text(_albumData.artist + ' - ' + _albumData.album);
-      AV.Rdio.getList('TracksForAlbum', rdioKey, 'tracks', self._addTrackList);
+      //can this move?
+      AV.Rdio.get('TracksForAlbum', rdioKey, 'tracks', self._addTrackList);
     },
 
     _addRdioActions: function(albumKey) {
@@ -45,7 +46,9 @@
     _addTrackList: function(call, album) {
       this.albumRdioData = album; // refer to this later for other data needs?
       _.each(album.tracks, function(v, i) {
-          ViewMaker.make('track', v).appendTo('.caseright');
+          ViewMaker.make('track', v).bind('click', function() {
+            R.player.play({source: $(this).attr('id')});
+          }).appendTo('.caseright');
       });
     }
   };
