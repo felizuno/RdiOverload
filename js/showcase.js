@@ -37,7 +37,7 @@
       $('.playing').removeClass('playing');
       // ASK IAN ABOUT THIS ++++++++++++++++++
       var npt = R.player.playingTrack();    //
-      var np = npt.attributes.key;       //
+      var np = npt.attributes.key;          //
       //+++++++++++++++++++++CAN I USE A GET?+
       $('.track').each(function(i, v) {
         $v = $(v);

@@ -18,8 +18,7 @@
       });
 
       $('#header').find('.titlecontainer').bind('click', function() {
-        $('.viewbox').hide();
-        $('#loginpanel').show();
+        self.flipView('.viewbox', '#loginpanel', window.scrollTo(0, 0));
       });
 
       $('#help').add('#nowplaying').each( function(i, v) {
@@ -29,11 +28,22 @@
       });
     },
 
+    flipView: function(a, b, callback) {
+        // THIS LEAVES A LOT TO BE DESIRED, AND SHOULD BE BUILT OUT TO BE SMARTER
+        $(b).toggle();
+        $(a).toggle();
+
+        if (_.isFunction(callback)) {
+          callback();
+        }
+    },
+
     bindCloseButtons: function() {
+      // TOP BIO BUTTONS ONLY WORK AFTER SECOND "ARTIST INFO" CLICK
+      // NOT SURE IF TIMING OR TARGETING ISSUE
       $('.close').each(function(i, v) {
         $(v).bind('click', function() {
-          $(this).parent().parent().hide();
-          $('.viewbox').show();
+          AV.flipView($(this).parent().parent(), '#viewbox');
         });
       });
     },
@@ -52,9 +62,12 @@
       
       $.getJSON(url, function(data) {
         self.loading = false;
-        // BELOW: RAMMING THE DIV, should issue a viewmaker command if bio > 1500 characters
+        // BELOW: - RAMMING THE DIV, SHOULD ISSUE A ViewMaker COMMAND IF bio > 1500 CHARACTERS
+        //        - REPLACE NOT WORKING
+        //        - PANEL NO LONGER SCROLLING CORRECTLY (.LESS ISSUE) - USED TO WORK NOW IT DOESN'T
         var bio = data.artist.bio.content.replace('<a', '<a target="_blank"') + '<div class="close button">[ CLOSE ]</div>';
         $('#biopanel').show().find('.panelbody').html(bio);
+        // PROBLEMS - SEE NOTE IN bindCloseButtons
         AV.bindCloseButtons();
       });
     },
