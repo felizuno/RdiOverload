@@ -32,6 +32,21 @@
       AV.Rdio.get('TracksForAlbum', rdioKey, 'tracks', self._addTrackList);
     },
 
+    changePlayingTrack: function() {
+      $('.playing').removeClass('playing');
+      // ASK IAN ABOUT THIS ++++++++++++++++++
+      var npt = R.player.playingTrack();    //
+      var np = npt.attributes.key;       //
+      //+++++++++++++++++++++CAN I USE A GET?+
+      $('.track').each(function(i, v) {
+        $v = $(v);
+        if (np == $v.attr('id')) {
+          $v.addClass('playing');
+        }
+      });
+
+    },
+
     _addRdioActions: function(albumKey) {
       ViewMaker.make('rdioaction', {'name':'Play Album'}).bind('click', function() {
         R.player.queue.addPlayingSource();
@@ -44,12 +59,14 @@
     },
 
     _addTrackList: function(call, album) {
-      this.albumRdioData = album; // refer to this later for other data needs?
+      var sc = AV.Showcase;
+      sc.albumRdioData = album; // refer to this later for other data needs?
       _.each(album.tracks, function(v, i) {
           ViewMaker.make('track', v).bind('click', function() {
             R.player.play({source: $(this).attr('id')});
           }).appendTo('.caseright');
       });
+      sc.changePlayingTrack();
     }
   };
 })();

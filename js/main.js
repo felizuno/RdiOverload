@@ -1,13 +1,15 @@
 (function() {
   window.AV = {
     init: function() {
-      this._rdioSetup();
-      this.bindCloseButtons();
+      var self = this;
+
+      self._rdioSetup();
+      self.bindCloseButtons();
 
       R.ready(function(){
-        AV.Rdio.get('TopCharts', 'no key', 'Album', AV.Chooser.addButtons)
+        self.Rdio.get('TopCharts', 'no key', 'Album', self.Chooser.addButtons)
         R.player.on('change:playingTrack', function(track) {
-          console.log(track);
+          self.Showcase.changePlayingTrack()
           var newTrack = track.attributes;
             $('#playertrack')
               .css('background-image', 'url(' + newTrack.icon +')')
