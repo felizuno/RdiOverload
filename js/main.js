@@ -30,10 +30,8 @@
       
       $.getJSON(url, function(data) {
         self.loading = false;
-
-        $('#biopanel').show()
-          .find('.panelbody').html(data.artist.bio.content.replace('<a', '<a target="_blank"'))
-          .find('.artistArt').attr('src', data.artist.image[3]['#text']);
+        var bio = data.artist.bio.content.replace('<a', '<a target="_blank"');
+        $('#biopanel').show().find('.panelbody').html(bio);
       });
     },
 
@@ -41,19 +39,19 @@
       var self = this;
       R.ready(function(){
         if (R.authenticated()) {
-          $('#authbutton').html('Dive in').show()
+          $('#authbutton').html('Dive in').unbind('click')
             .bind('click', function() {
-              self.Chooser.init();
+              AV.Chooser.init();
               $('#loginpanel').hide();
           });
 
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
 
           var userKey = R.currentUser.get('key');
-          self.Rdio.getList('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
-          self.Rdio.getList('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
-          //self.Rdio.getList('Following', userKey, 500, AV.Chooser.addButtons);
-          //self.Rdio.getList('Followers', userKey, 500, AV.Chooser.addButtons);
+          AV.Rdio.getList('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
+          AV.Rdio.getList('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
+          //AV.Rdio.getList('Following', userKey, 500, AV.Chooser.addButtons);
+          //AV.Rdio.getList('Followers', userKey, 500, AV.Chooser.addButtons);
         } else {
           // Add the #authbutton only if they need it, since login will always show at first
           $('#authbutton').html('Click to authenticate with Rdio').show()

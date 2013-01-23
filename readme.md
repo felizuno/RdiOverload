@@ -1,5 +1,4 @@
 ## TODO
-* Bios
 * Help (lower right)
 * Popup Manager (WTF DOES THIS MEAN, KEVIN?)
 * Add and style user options
