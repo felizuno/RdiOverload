@@ -1,6 +1,6 @@
 (function() {
   AV.Showcase = {
-    albumRdioData: {},
+    albumRdioData: {}, // JUST KIND OF HANGING OUT BEING WRITTEN TO BUT NEVER READ FROM
 
     newShowcase: function(masterListObject) {
       var self = this;
@@ -9,6 +9,7 @@
       _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
           AV.Showcase.changeFeaturedAlbum(this, masterListObject);
+          // ^ CAN BE SELF?
           window.scrollTo(0, 0);
         }).appendTo('.albumgrid');
       });
@@ -31,10 +32,12 @@
 
     changePlayingTrack: function() {
       $('.playing').removeClass('playing');
-      // ASK IAN ABOUT THIS ++++++++++++++++++
-      var npt = R.player.playingTrack();    //
-      var np = npt.attributes.key;          //
-      //+++++++++++++++++++++CAN I USE A GET?+
+      // ASK IAN ABOUT THIS ++++++++++++++++++++++++++++
+      var npt = R.player.playingTrack();              //
+      var np = npt.attributes.key;                    //
+      //++++++++++++++++++++++++++++++++++CAN I USE ?+++
+      // var np = R.player.playingTrack.get('key'); ? //
+      // +++++++++++++++++++++++++++++++++++++++++++++//
       $('.track').each(function(i, v) {
         var $v = $(v);
         if (np == $v.attr('id')) {

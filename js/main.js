@@ -60,7 +60,7 @@
       
       $.getJSON(url, function(data) {
         self.loading = false;
-        // BELOW: - RAMMING THE DIV, SHOULD ISSUE A ViewMaker COMMAND IF bio > 1500 CHARACTERS
+        // BELOW: - RAMMING THE CLOSE DIV, SHOULD ISSUE A ViewMaker COMMAND IF bio > 1500 CHARACTERS
         //        - REPLACE NOT WORKING
         //        - PANEL NO LONGER SCROLLING CORRECTLY (.LESS ISSUE) - USED TO WORK NOW IT DOESN'T
         var bio = data.artist.bio.content.replace('<a', '<a target="_blank"') + '<div class="close button">[ CLOSE ]</div>';
