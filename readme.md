@@ -1,4 +1,5 @@
 ## TODO
+* Fix close buttons
 * Add and style user options
 * Handle changing the chooser when you change the user
 * Fix top charts / heavy rotation
