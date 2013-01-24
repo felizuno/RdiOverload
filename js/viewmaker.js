@@ -29,7 +29,7 @@
         });
 
       } else if (command == 'track') {
-        var _name = config.name.replace('(', '<span>').replace(')', '</span>');
+        var _name = config.name.replace(/\(/g, '<span>').replace(/\)/g, '</span>');
 
         _length = parseInt(config.duration);
         _min = Math.floor(_length / 60);

@@ -101,29 +101,31 @@
         console.log('You can\'t Rdio.get ' + call + '. Key is: ' + key);
       }
     },
+    
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-player: function(call, key, callback) {
-  
-  if (call == 'play') {
-    // ----------
-    var _k = key[0];
-    if (_k == 'a' || _k == 'ca') { R.player.queue.addPlayingSource(); }
-    R.player.play({source: key});
     
-    // ----------
-  } else if (call == 'queue') {
-    // ----------
-    R.player.queue.add(key);
-    
-    // ----------
-  } else if (call == 'queueNext') {
-    if (key == '') {
-      // IF THERE WAS NO KEY THEN PLAY THE NEXT THING IN THE QUEUE
-    } else {
-      // IF KEY IS A REAL KEY (FORMAT CHECK) THEN 
-    }
-  }
-},
+    player: function(call, key, callback) {
+      
+      if (call == 'play') {
+        // ----------
+        var _k = key[0];
+        if (_k == 'a' || _k == 'ca') { R.player.queue.addPlayingSource(); }
+        R.player.play({source: key});
+        
+        // ----------
+      } else if (call == 'queue') {
+        // ----------
+        R.player.queue.add(key);
+        
+        // ----------
+      } else if (call == 'queueNext') {
+        if (key == '') {
+          // IF THERE WAS NO KEY THEN PLAY THE NEXT THING IN THE QUEUE
+        } else {
+          // IF KEY IS A REAL KEY (FORMAT CHECK) THEN 
+        }
+      }
+    },
 
 // --------------------------------
 // 
