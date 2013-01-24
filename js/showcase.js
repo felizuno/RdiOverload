@@ -15,20 +15,16 @@
     },
 
     changeFeaturedAlbum: function(albumThumb, masterListObject) {
-      $('.caseright').children().add('.rdioaction').remove();
-      
       var self = this;
       var rdioKey = $(albumThumb).attr('id');
       var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == rdioKey; });
-      
-      $('.caseart').css('background-image', 'url(' + _albumData.icon.replace('-200.jpg', '-600.jpg'));
-      self._addRdioActions(rdioKey);
-  
-      ViewMaker.make('rdioaction', {'name':'Artist Info'}).bind('click', function() {
-          AV.showBio(_albumData.artist);
-        }).show().appendTo('.casecommands');
+      var _artist = _albumData.artist;
 
-      $('.albumtitle').text(_albumData.artist + ' - ' + _albumData.album);
+      $('.caseright').children().add('.rdioaction').remove();
+      
+      self._addAlbumActions(_artist, rdioKey);
+      $('.albumtitle').text(_artist + ' - ' + _albumData.album);
+      $('.caseart').css('background-image', 'url(' + _albumData.icon.replace('-200.jpg', '-600.jpg'));
       //can this move?
       AV.Rdio.get('TracksForAlbum', rdioKey, 'tracks', self._addTrackList);
     },
@@ -40,15 +36,18 @@
       var np = npt.attributes.key;          //
       //+++++++++++++++++++++CAN I USE A GET?+
       $('.track').each(function(i, v) {
-        $v = $(v);
+        var $v = $(v);
         if (np == $v.attr('id')) {
           $v.addClass('playing');
         }
       });
-
     },
 
-    _addRdioActions: function(albumKey) {
+    _addAlbumActions: function(artist, albumKey) {
+      ViewMaker.make('rdioaction', {'name':'Artist Info'}).bind('click', function() {
+          AV.showBio(artist);
+        }).show().appendTo('.casecommands');
+
       ViewMaker.make('rdioaction', {'name':'Play Album'}).bind('click', function() {
         R.player.queue.addPlayingSource();
         R.player.play({source: albumKey});
@@ -57,6 +56,7 @@
       ViewMaker.make('rdioaction', {'name':'Queue Album'}).bind('click', function() {
         R.player.queue.add(albumKey);
       }).show().appendTo('.casecommands');
+
     },
 
     _addTrackList: function(call, album) {

@@ -3,7 +3,7 @@
     init: function() {
       var self = this;
 
-      self._rdioSetup();
+      self.Rdio.authInit();
       self.bindCloseButtons();
 
       R.ready(function(){
@@ -18,7 +18,7 @@
       });
 
       $('#header').find('.titlecontainer').bind('click', function() {
-        self.flipView('.viewbox', '#loginpanel', window.scrollTo(0, 0));
+        self.flipTo('.viewbox', '#loginpanel', window.scrollTo(0, 0));
       });
 
       $('#help').add('#nowplaying').each( function(i, v) {
@@ -28,22 +28,20 @@
       });
     },
 
-    flipView: function(a, b, callback) {
+    flipTo: function(a, b, coords) {
         // THIS LEAVES A LOT TO BE DESIRED, AND SHOULD BE BUILT OUT TO BE SMARTER
         $(b).toggle();
         $(a).toggle();
 
-        if (_.isFunction(callback)) {
-          callback();
-        }
+        if (_.isArray(coords)) {window.scrollTo(coords[0], coords[1]);}
     },
 
     bindCloseButtons: function() {
-      // TOP BIO BUTTONS ONLY WORK AFTER SECOND "ARTIST INFO" CLICK
+      // TOP CLOSE BUTTONS IN BIO ONLY WORK AFTER SECOND "ARTIST INFO" CLICK
       // NOT SURE IF TIMING OR TARGETING ISSUE
       $('.close').each(function(i, v) {
         $(v).bind('click', function() {
-          AV.flipView($(this).parent().parent(), '#viewbox');
+          AV.flipTo($(this).parent().parent(), '#viewbox');
         });
       });
     },
@@ -72,32 +70,6 @@
       });
     },
 
-    _rdioSetup: function() {
-      var self = this;
-      R.ready(function(){
-        if (R.authenticated()) {
-          $('#authbutton').html('Dive in').unbind('click')
-            .bind('click', function() {
-              AV.Chooser.init();
-              $('#loginpanel').hide();
-          });
-
-          $('.peoplebutton').text(R.currentUser.get('vanityName'));
-
-          var userKey = R.currentUser.get('key');
-          AV.Rdio.get('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
-          AV.Rdio.get('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
-          //AV.Rdio.get('Following', userKey, 500, AV.Chooser.addButtons);
-          //AV.Rdio.get('Followers', userKey, 500, AV.Chooser.addButtons);
-        } else {
-          // Add the #authbutton only if they need it, since login will always show at first
-          $('#authbutton').html('Click to authenticate with Rdio').show()
-            .bind('click', function() {
-              R.authenticate(self._rdioSetup);
-          });
-        }
-      });
-    },
 
     _removeCurrentList: function() {
       $('.viewbox').remove();

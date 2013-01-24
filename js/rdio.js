@@ -3,17 +3,42 @@
     masterLists: [], // ONLY WRITE FROM getList, ONLY GET VIA pluckFromMasterlists
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    pluckFromMasterLists: function(name) {
-      var list = _.find(this.masterLists, function(v) {
-        return v.data.name == name;
+    authInit: function() {
+      var self = this;
+      R.ready(function(){
+        if (R.authenticated()) {
+          $('#authbutton').html('Dive in').unbind('click')
+            .bind('click', function() {
+              AV.Chooser.init();
+              $('#loginpanel').hide();
+          });
+
+          $('.peoplebutton').text(R.currentUser.get('vanityName'));
+
+          var userKey = R.currentUser.get('key');
+          AV.Rdio.get('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
+          AV.Rdio.get('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
+          //AV.Rdio.get('Following', userKey, 500, AV.Chooser.addButtons);
+          //AV.Rdio.get('Followers', userKey, 500, AV.Chooser.addButtons);
+        } else {
+          // Add the #authbutton only if they need it, since login will always show at first
+          $('#authbutton').html('Click to authenticate with Rdio').show()
+            .bind('click', function() {
+              R.authenticate(self.authInit);
+          });
+        }
       });
+    },
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    pluckFromMasterLists: function(name) {
+      var list = _.find(this.masterLists, function(v) {return v.data.name == name;});
       return list;
     },
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     get: function(call, key, responseParam, callback) {
       var self = this;
-      var _method = self._triageCallType(call);
-      var _type = self._triageResponseType(call);
+      var _method = self._addPrefix(call);
+      var _type = self._responseType(call);
 
       // ----------------------------------------------------
       if (call == "UserPlaylists" || call == "Following" || call == 'Followers') {
@@ -28,9 +53,7 @@
             },
             success: function(data) {
               self._pushToMasterLists(data.result, call, _type);
-              if (_.isFunction(callback)) {
-                callback(call, self.masterLists);
-              }
+              if (_.isFunction(callback)) {callback(call, self.masterLists);}
             }
           });
         });
@@ -53,9 +76,7 @@
               });
               self._pushToMasterLists([mockList], call, _type);
 
-              if (_.isFunction(callback)) {
-                callback(call, self.masterLists);
-              }
+              if (_.isFunction(callback)) {callback(call, self.masterLists);}
             }
           });
         });
@@ -69,11 +90,11 @@
             extras: 'tracks'
           },
           success: function(data) {
-            if (_.isFunction(callback)) {
-              callback(call, data.result[key]);
-            }
+            if (_.isFunction(callback)) {callback(call, data.result[key]);}
           }
         });
+      } else {
+        console.log('You can\'t Rdio.get ' + call + '. Key is: ' + key);
       }
     },
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -84,16 +105,18 @@ player: function(call, key, callback) {
     var _k = key[0];
     if (_k == 'a' || _k == 'ca') {R.player.queue.addPlayingSource();}
     R.player.play({source: key});
+    
     // ----------
   } else if (call == 'queue') {
     // ----------
     R.player.queue.add(key);
+    
     // ----------
   } else if (call == 'queueNext') {
-    if (!key.length > 1) {
-      
+    if (!key.length > 1) {  // GHETTO AS SHIT AND NEEDS TO CHANGE
+      // IF THERE WAS NO KEY, OR AN OBVIOUSLY WRONG KEY PASSED
     } else {
-      
+      // IF KEY IS A REAL KEY (FORMAT CHECK)
     }
   }
 },
@@ -108,10 +131,7 @@ player: function(call, key, callback) {
 
       var __mL = self.masterLists;
       var __push = function(data) {
-        __mL.push({
-          'name': call,
-          'data': data
-        });
+        __mL.push({ 'name': call, 'data': data });
       };
 
       if (_type == 'list') {
@@ -130,8 +150,8 @@ player: function(call, key, callback) {
       this.masterLists = [];
     },
 // ---------------------------------------------------------------
-    _triageCallType: function(call) {
-      var _method;
+    _addPrefix: function(call) {
+      var _method = '';
       if (call == 'Following' || call == 'Followers') {
         _method = 'user' + call;
       } else {
@@ -141,7 +161,7 @@ player: function(call, key, callback) {
       return _method
     },
 // ---------------------------------------------------------------
-    _triageResponseType: function(call) {
+    _responseType: function(call) {
       var _type;
       if (call == 'Following' || call == 'Followers') {
         _type = 'people';
