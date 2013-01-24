@@ -29,20 +29,24 @@
         }
       });
     },
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     pluckFromMasterLists: function(name) {
       var list = _.find(this.masterLists, function(v) {return v.data.name == name;});
       return list;
     },
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     get: function(call, key, responseParam, callback) {
       var self = this;
       var _method = self._addPrefix(call);
-      var _type = self._responseType(call);
+      var _resultObjectType = self._predictResponseType(call);
 
-      // ----------------------------------------------------
+    // ---------------------
       if (call == "UserPlaylists" || call == "Following" || call == 'Followers') {
-      // ----------------------------------------------------
+    // ---------------------
         R.ready(function() {
           R.request({
             method: _method,
@@ -52,17 +56,17 @@
               extras: '-*,name,key,trackKeys'
             },
             success: function(data) {
-              self._pushToMasterLists(data.result, call, _type);
-              if (_.isFunction(callback)) {callback(call, self.masterLists);}
+              self._pushToMasterLists(data.result, call, _resultObjectType);
+              if (_.isFunction(callback)) { callback(call, self.masterLists); }
             }
           });
         });
-      // ----------------------------------------------------
+    // ---------------------
       } else if (call == 'TopCharts' || call == "HeavyRotation" ) {
-      // ----------------------------------------------------
-        R.ready(function() {
-          R.request({
-            method: _method,
+    // --------------------- 
+        R.ready(function() {      // CURRENTLY BROKEN, ON DISPLAY IT SHOWS ALBUMS
+          R.request({             // BUT IS ONLY CAPABLE OF SHOWING THE FIRST ALBUM
+            method: _method,      // AND CAN'T SHOW IT'S TRACKS OR CHANGE ALBUMS
             content: {
               type: responseParam,
               count: 100,
@@ -74,15 +78,15 @@
               _.each(data.result, function(v, i) {
                 mockList.albums.push(v);
               });
-              self._pushToMasterLists([mockList], call, _type);
+              self._pushToMasterLists([mockList], call, _resultObjectType);
 
-              if (_.isFunction(callback)) {callback(call, self.masterLists);}
+              if (_.isFunction(callback)) { callback(call, self.masterLists); }
             }
           });
         });
-      // ----------------------------------------------------
+    // ---------------------
       } else if (call == 'TracksForAlbum') {
-      // ----------------------------------------------------
+    // ---------------------
         R.request({
           method: 'get',
           content: {
@@ -90,7 +94,7 @@
             extras: 'tracks'
           },
           success: function(data) {
-            if (_.isFunction(callback)) {callback(call, data.result[key]);}
+            if (_.isFunction(callback)) { callback(call, data.result[key]); }
           }
         });
       } else {
@@ -103,7 +107,7 @@ player: function(call, key, callback) {
   if (call == 'play') {
     // ----------
     var _k = key[0];
-    if (_k == 'a' || _k == 'ca') {R.player.queue.addPlayingSource();}
+    if (_k == 'a' || _k == 'ca') { R.player.queue.addPlayingSource(); }
     R.player.play({source: key});
     
     // ----------
@@ -113,19 +117,19 @@ player: function(call, key, callback) {
     
     // ----------
   } else if (call == 'queueNext') {
-    if (!key.length > 1) {  // GHETTO AS SHIT AND NEEDS TO CHANGE
-      // IF THERE WAS NO KEY, OR AN OBVIOUSLY WRONG KEY PASSED
+    if (key == '') {
+      // IF THERE WAS NO KEY THEN PLAY THE NEXT THING IN THE QUEUE
     } else {
-      // IF KEY IS A REAL KEY (FORMAT CHECK)
+      // IF KEY IS A REAL KEY (FORMAT CHECK) THEN 
     }
   }
 },
 
-// ---------------------------------------------------------------
+// --------------------------------
 // 
 //              LOCALS ONLY!
 // 
-// ---------------------------------------------------------------
+// --------------------------------
     _pushToMasterLists: function(array, call, _type) {
       var self = this;
 
@@ -145,11 +149,11 @@ player: function(call, key, callback) {
         __push(array);
       }
     },
-// ---------------------------------------------------------------
+// --------------------------------
     _resetMasterLists: function () {
       this.masterLists = [];
     },
-// ---------------------------------------------------------------
+// --------------------------------
     _addPrefix: function(call) {
       var _method = '';
       if (call == 'Following' || call == 'Followers') {
@@ -160,18 +164,15 @@ player: function(call, key, callback) {
 
       return _method
     },
-// ---------------------------------------------------------------
-    _responseType: function(call) {
+// --------------------------------
+    _predictResponseType: function(call) {
       var _type;
-      if (call == 'Following' || call == 'Followers') {
-        _type = 'people';
-      } else {
-        _type = 'list'
-      }
+      if (call == 'Following' || call == 'Followers') { _type = 'people'; } 
+      else { _type = 'list' }
 
       return _type;
     },
-// ---------------------------------------------------------------
+// --------------------------------
     _convertTracksToAlbums: function(data, listName) {
       var self = this;
       var albums = [];
