@@ -50,7 +50,7 @@
               extras: '-*,name,key,trackKeys,ownerKey'
             },
             success: function(data) {
-              self._pushToMasterLists(data.result, call, _resultObjectType);
+              self._pushToMasterLists(data.result, call, key, _resultObjectType);
               if (_.isFunction(callback)) { callback(call, self.masterLists); }
             }
           });
@@ -72,7 +72,7 @@
               _.each(data.result, function(v, i) {
                 mockList.albums.push(v);
               });
-              self._pushToMasterLists([mockList], call, _resultObjectType);
+              self._pushToMasterLists([mockList], call, key, _resultObjectType);
 
               if (_.isFunction(callback)) { callback(call, self.masterLists); }
             }
@@ -126,23 +126,23 @@
 //              LOCALS ONLY!
 // 
 // --------------------------------
-    _pushToMasterLists: function(array, call, _type) {
+    _pushToMasterLists: function(array, call, key, listType) {
       var self = this;
-
       var __mL = self.masterLists;
+
       var __push = function(data) {
-        var ownerKey = data.owner || '';
+        var ownerKey = data.owner || key;
         __mL.push({ 'name': call, 'owner': ownerKey, 'data': data });
       };
 
-      if (_type == 'list') {
+      if (listType == 'music') {
         _.each(array, function(v, i) {
           if (!!v.trackKeys) {
             self._convertTracksToAlbums(v, v.name);
           }
           __push(v);
         });
-      } else if (_type == 'people') {
+      } else if (listType == 'people') {
         __push(array);
       }
     },
@@ -166,7 +166,7 @@
     _predictResponseType: function(call) {
       var _type;
       if (call == 'Following' || call == 'Followers') { _type = 'people'; } 
-      else { _type = 'list' }
+      else { _type = 'music' }
 
       return _type;
     },

@@ -13,8 +13,17 @@
     //   
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    addPeopleGroup: function(call, masterLists) {
-      
+    addPeopleGroup: function(key, masterLists) {
+      // lists is an array with a: 
+      //  name ('Followers' or 'Following'),
+      //  data (an array of objects, each of which has a 'key' property)
+      //  owner (the Rdio key of the user whose peopleGroup this is)
+      var lists = _.where(masterLists, {name: key});
+
+      // WHY AM I USING lists[0]
+      ViewMaker.make('peoplebutton', lists[0]).bind('click', function() {
+        AV.Chooser.toggleChosen(this);
+      }).appendTo('#peoplemenu');
     }
 
   };
