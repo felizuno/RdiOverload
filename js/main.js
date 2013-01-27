@@ -3,10 +3,10 @@
     init: function() {
       var self = this;
 
-      this.Rdio.authInit();
-      this.bindCloseButtons();
-
       R.ready(function(){
+        self.Rdio.authInit();
+        self.changeUser(R.currentUser.get('key'));
+        self.bindCloseButtons();
         self.Rdio.get('TopCharts', 'no key', 'Album', self.Chooser.addButtons)
         R.player.on('change:playingTrack', function(track) {
           self.Showcase.changePlayingTrack()
@@ -18,7 +18,7 @@
       });
 
       $('#header').find('.titlecontainer').bind('click', function() {
-        self.flipTo('.viewbox', '#loginpanel', window.scrollTo(0, 0));
+        self.toggleBetween('.viewbox', '#loginpanel', window.scrollTo(0, 0));
       });
 
       $('#help, #nowplaying').bind('click', function() {
@@ -26,7 +26,7 @@
       });
     },
 
-    flipTo: function(a, b, coords) {
+    toggleBetween: function(a, b, coords) {
         // THIS LEAVES A LOT TO BE DESIRED, AND SHOULD BE BUILT OUT TO BE SMARTER
         $(a).hide();
         $(b).show();
@@ -36,8 +36,18 @@
 
     bindCloseButtons: function() {
       $('.close').unbind('click').bind('click', function() {
-        AV.flipTo($(this).parent().parent(), '.viewbox');
+        AV.toggleBetween($(this).parent().parent(), '.viewbox');
       });
+    },
+
+    changeUser: function(userKey) {
+      //this.Rdio._bumpToStorage(this.Rdio.masterLists);
+      this.Chooser.removeOldPlaylists();
+      this.Rdio.get('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
+      this.Rdio.get('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
+      this.Rdio.get('Following', userKey, 200, AV.UserPanel.addPeopleGroup);
+      this.Rdio.get('Followers', userKey, 200, AV.UserPanel.addPeopleGroup);
+      $('#userpanel').hide();
     },
 
     changeList: function (newListName) {
@@ -59,7 +69,6 @@
         AV.bindCloseButtons();
       });
     },
-
 
     _removeCurrentList: function() {
       $('.viewbox').remove();

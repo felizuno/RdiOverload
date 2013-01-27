@@ -1,5 +1,6 @@
 (function() {
   AV.Rdio = {
+    storage: [],
     masterLists: [], // ONLY WRITE FROM getList, ONLY GET VIA pluckFromMasterlists
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -12,17 +13,10 @@
               AV.Chooser.init();
               $('#loginpanel').hide();
           });
-
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
 
-          var userKey = R.currentUser.get('key');
-          AV.Rdio.get('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
-          AV.Rdio.get('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
-          //AV.Rdio.get('Following', userKey, 500, AV.Chooser.addButtons);
-          //AV.Rdio.get('Followers', userKey, 500, AV.Chooser.addButtons);
         } else {
-          // Add the #authbutton only if they need it, since login will always show at first
-          $('#authbutton').html('Click to authenticate with Rdio').show()
+          $('#authbutton').html('Click to authenticate with Rdio')()
             .bind('click', function() {
               R.authenticate(self.authInit);
           });
@@ -53,7 +47,7 @@
             content:{
               user: key,
               count: responseParam,
-              extras: '-*,name,key,trackKeys'
+              extras: '-*,name,key,trackKeys,ownerKey'
             },
             success: function(data) {
               self._pushToMasterLists(data.result, call, _resultObjectType);
@@ -137,7 +131,8 @@
 
       var __mL = self.masterLists;
       var __push = function(data) {
-        __mL.push({ 'name': call, 'data': data });
+        var ownerKey = data.owner || '';
+        __mL.push({ 'name': call, 'owner': ownerKey, 'data': data });
       };
 
       if (_type == 'list') {
@@ -152,8 +147,9 @@
       }
     },
 // --------------------------------
-    _resetMasterLists: function () {
-      this.masterLists = [];
+    _bumpToStorage: function (item) {
+      this.storage.push(item);
+      item = null;
     },
 // --------------------------------
     _addPrefix: function(call) {

@@ -44,16 +44,16 @@
     _addAlbumActions: function(artist, albumKey) {
       ViewMaker.make('rdioaction', {'name':'Artist Info'}).bind('click', function() {
           AV.showBio(artist);
-        }).show().appendTo('.casecommands');
+        }).appendTo('.casecommands');
 
       ViewMaker.make('rdioaction', {'name':'Play Album'}).bind('click', function() {
         R.player.queue.addPlayingSource();
         R.player.play({source: albumKey});
-      }).show().appendTo('.casecommands');
+      }).appendTo('.casecommands');
       
       ViewMaker.make('rdioaction', {'name':'Queue Album'}).bind('click', function() {
         R.player.queue.add(albumKey);
-      }).show().appendTo('.casecommands');
+      }).appendTo('.casecommands');
 
     },
 

@@ -6,7 +6,6 @@
         var $newElement = $('<div />', {
           'class': 'button ' + command,
           'html': config.name,
-          'style': 'display:none'
         });
 
       } else if (command =='viewbox') {

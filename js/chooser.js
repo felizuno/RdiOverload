@@ -41,17 +41,22 @@
               AV.Chooser.toggleChosen(this);
             }).appendTo('#playlistmenu');
         });
-      } else if (key == 'Followers' || key == 'Following') {
-        ViewMaker.make('peoplebutton', lists[0])
-          .bind('click', function() {
-            AV.Chooser.toggleChosen(this);
-          }).appendTo('#peoplemenu');
       } else if (key == 'TopCharts' || key == 'HeavyRotation') {
+
+        // ++++
+        // I THINK THIS IS PART OF WHY THESE LISTS ARE BORKED
+        // ++++
+
         ViewMaker.make('plbutton', lists[0])
           .bind('click', function() {
             AV.Chooser.toggleChosen(this);
           }).appendTo('#playlistmenu');
       }
+    },
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
+    
+    removeOldPlaylists: function() {
+      $('.plbutton').remove();
     },
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
