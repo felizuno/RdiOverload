@@ -1,11 +1,20 @@
 (function() {
   window.ViewMaker = {
-    make: function(command, config) {
+    make: function(cmd, config) {
+      var command = cmd.toLowerCase();
 
-      if (command == 'plbutton' || command == 'peoplebutton' || command == 'rdioaction') {
+      if (command == 'plbutton' || command == 'peoplegroupbutton' || command == 'rdioaction') {
         var $newElement = $('<div />', {
           'class': 'button ' + command,
           'html': config.name,
+        });
+
+      } else if (command == 'person') {
+        var $newElement = $('<div />', {
+          'id': config.key,
+          'class': 'button ' + command,
+          'html': config.username,
+          'style':'background-image: url("' + config.icon + '")'
         });
 
       } else if (command =='viewbox') {

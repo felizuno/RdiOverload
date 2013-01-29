@@ -1,6 +1,5 @@
 (function() {
   AV.Rdio = {
-    storage: [],
     masterLists: [], // ONLY WRITE FROM getList, ONLY GET VIA pluckFromMasterlists
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -47,7 +46,7 @@
             content:{
               user: key,
               count: responseParam,
-              extras: '-*,name,key,trackKeys,ownerKey'
+              extras: '-*,name,key,trackKeys,ownerKey,vanityName,icon'
             },
             success: function(data) {
               self._pushToMasterLists(data.result, call, key, _resultObjectType);
@@ -145,11 +144,6 @@
       } else if (listType == 'people') {
         __push(array);
       }
-    },
-// --------------------------------
-    _bumpToStorage: function (item) {
-      this.storage.push(item);
-      item = null;
     },
 // --------------------------------
     _addPrefix: function(call) {
