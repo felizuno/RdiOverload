@@ -77,5 +77,6 @@
 
   $(document).ready(function() {
     AV.init();
+    AV.Router.init();
   });
 })();
