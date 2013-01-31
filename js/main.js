@@ -4,8 +4,14 @@
       var self = this;
 
       R.ready(function(){
+
         self.Rdio.authInit();
+        //
+        //
+        // THIS NEEDS TO BE FIXED. ONLY GONNA WORK IF YOU'RE ALREADY AUTHED
+        // MOVE TO THE RDIO AUTH INIT. IT'S TECHNICALLY AN RDIO CALL ANYWAY
         self.changeUser(R.currentUser.get('key'));
+
         self.bindCloseButtons();
         self.Rdio.get('TopCharts', 'no key', 'Album', self.Chooser.addButtons)
         R.player.on('change:playingTrack', function(track) {
@@ -28,7 +34,7 @@
 
     toggleBetween: function(a, b, coords) {
         // THIS LEAVES A LOT TO BE DESIRED, AND SHOULD BE BUILT OUT TO BE SMARTER
-        $(a).hide();
+        $(a).toggle('scale');
         $(b).show();
 
         if (_.isArray(coords)) {window.scrollTo(coords[0], coords[1]);}
@@ -40,6 +46,10 @@
       });
     },
 
+    //
+    //
+    // MOVE THIS OVER TO THE RDIO OBJECT, BUT WHAT ABOUT THE
+    // CHOOSER CALLS? FUCKS
     changeUser: function(userKey) {
       //this.Rdio._bumpToStorage(this.Rdio.masterLists);
       this.Chooser.removeOldPlaylists();

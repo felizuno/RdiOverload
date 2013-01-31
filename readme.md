@@ -1,6 +1,6 @@
 ## TODO
 * History/Url handling
-* Add and style user options
+* Style user options
 * Handle changing the chooser when you change the user
 * Fix top charts / heavy rotation
 * Popup Manager (WTF DOES THIS MEAN, KEVIN?)
