@@ -8,8 +8,12 @@
 
       _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
-          $(this).effect('transfer', { to: $('.caseart') }, 250);
-          self.changeFeaturedAlbum(this, masterListObject);
+          $(this)
+            .effect(
+              'transfer', { to: $('.caseart') }, 250,
+              //callback for effect
+              self.changeFeaturedAlbum(this, masterListObject)
+            );
           window.scrollTo(0, 0);
         }).appendTo('.albumgrid');
       });
@@ -44,8 +48,8 @@
 
     _addAlbumActions: function(artist, albumKey) {
       ViewMaker.make('rdioaction', {'name':'Artist Info'}).bind('click', function() {
-          AV.showBio(artist);
-        }).appendTo('.casecommands');
+        AV.showBio(artist);
+      }).appendTo('.casecommands');
 
       ViewMaker.make('rdioaction', {'name':'Play Album'}).bind('click', function() {
         R.player.queue.addPlayingSource();
