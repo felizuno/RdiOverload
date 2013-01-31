@@ -5,7 +5,7 @@
 
       R.ready(function(){
 
-        self.Rdio.authInit();
+        //self.Rdio.authInit();
         //
         //
         // THIS NEEDS TO BE FIXED. ONLY GONNA WORK IF YOU'RE ALREADY AUTHED
@@ -13,7 +13,7 @@
         self.changeUser(R.currentUser.get('key'));
 
         self.bindCloseButtons();
-        self.Rdio.get('TopCharts', 'no key', 'Album', self.Chooser.addButtons)
+        //self.Rdio.get('TopCharts', 'no key', 'Album', self.Chooser.addButtons)
         R.player.on('change:playingTrack', function(track) {
           self.Showcase.changePlayingTrack()
           var newTrack = track.attributes;
@@ -51,17 +51,17 @@
     // MOVE THIS OVER TO THE RDIO OBJECT, BUT WHAT ABOUT THE
     // CHOOSER CALLS? FUCKS
     changeUser: function(userKey) {
-      //this.Rdio._bumpToStorage(this.Rdio.masterLists);
+      ////this.Rdio._bumpToStorage(this.Rdio.masterLists);
       this.Chooser.removeOldPlaylists();
-      this.Rdio.get('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
-      this.Rdio.get('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
-      this.Rdio.get('Following', userKey, 200, AV.UserPanel.addPeopleGroup);
-      this.Rdio.get('Followers', userKey, 200, AV.UserPanel.addPeopleGroup);
+      //this.Rdio.get('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
+      //this.Rdio.get('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
+      //this.Rdio.get('Following', userKey, 200, AV.UserPanel.addPeopleGroup);
+      //this.Rdio.get('Followers', userKey, 200, AV.UserPanel.addPeopleGroup);
       $('#userpanel').hide();
     },
 
     changeList: function (newListName) {
-      var newList = this.Rdio.pluckFromMasterLists(newListName);      
+      //var newList = this.Rdio.pluckFromMasterLists(newListName);      
       this._removeCurrentList();
       ViewMaker.make('viewbox', newList.data).appendTo('#maincontent');
       AV.Showcase.newShowcase(newList);
