@@ -63,7 +63,7 @@
     changeList: function (newListName) {
       var newList = this.Rdio.pluckFromMasterLists(newListName);      
       this._removeCurrentList();
-      ViewMaker.make('viewbox', newList).appendTo('#maincontent');
+      ViewMaker.make('viewbox', newList.data).appendTo('#maincontent');
       AV.Showcase.newShowcase(newList);
     },
 
