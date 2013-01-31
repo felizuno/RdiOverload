@@ -15,7 +15,7 @@
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
 
         } else {
-          $('#authbutton').html('Click to authenticate with Rdio')()
+          $('#authbutton').html('Click to authenticate with Rdio')
             .bind('click', function() {
               R.authenticate(self.authInit);
           });
