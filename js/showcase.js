@@ -8,7 +8,7 @@
 
       _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
-          $(this).effect('transfer', { to: $('.caseart') }, 3000);
+          $(this).effect('transfer', { to: $('.caseart') }, 250);
           self.changeFeaturedAlbum(this, masterListObject);
           window.scrollTo(0, 0);
         }).appendTo('.albumgrid');
