@@ -8,6 +8,7 @@
 
       _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
+          //$('.ui-effects-transfer').css('background-color: #fff');//'background-image: url("' + $(albumThumb).attr('href') + '")');
           $(this)
             .effect(
               'transfer', { to: $('.caseart') }, 250,
@@ -21,6 +22,8 @@
 
     changeFeaturedAlbum: function(albumThumb, masterListObject) {
       var self = this;
+
+
       var rdioKey = $(albumThumb).attr('id');
       var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == rdioKey; });
       var _artist = _albumData.artist;

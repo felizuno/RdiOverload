@@ -18,7 +18,7 @@
       var self = AV.UserPanel;
 
       var people = _.where(masterLists, {name: key})[0];
-      //  people is an array with a: 
+      //  people is an array with a(n): 
       //    name ('Followers' or 'Following'),
       //    data (an array of objects, each of which has a 'key' property)
       //    owner (the Rdio key of the user whose peopleGroup this is)
