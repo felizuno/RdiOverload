@@ -1,10 +1,8 @@
 (function() {
   AV.Showcase = {
-    albumRdioData: {}, // JUST KIND OF HANGING OUT BEING WRITTEN TO BUT NEVER READ FROM
 
     newShowcase: function(masterListObject) {
       var self = this;
-      albumRdioData = {};
 
       _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
@@ -67,7 +65,6 @@
 
     _addTrackList: function(call, album) {
       var sc = AV.Showcase;
-      sc.albumRdioData = album; // refer to this later for other data needs?
       _.each(album.tracks, function(v, i) {
           ViewMaker.make('track', v).bind('click', function() {
             R.player.play({source: $(this).attr('id')});

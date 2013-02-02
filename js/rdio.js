@@ -1,6 +1,6 @@
 (function() {
   AV.Rdio = {
-    masterLists: [], // ONLY WRITE FROM getList, ONLY GET VIA pluckFromMasterlists
+    masterLists: [], // ONLY WRITE FROM get, ONLY GET VIA pluckFromMasterlists
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     authInit: function() {

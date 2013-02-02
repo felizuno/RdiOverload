@@ -1,34 +1,33 @@
 (function() {
   window.ViewMaker = {
     make: function(cmd, config) {
-      var command = cmd.toLowerCase();
-
       // CONFIG MUST BE AN OBJECT (USUALLY WITH A NAME)
       if (!_.isObject(config)) {
-        $newElement = $('div', {html: '[ViewMaker] Config should be an object'});
+        $newElement = $('div', {html: '[ViewMaker] Config for ' + cmd + ' should be an object'});
         return $newElement;
       }
 
       // +++++++++++++++++++++++++++++++++++
+      var command = cmd.toLowerCase();
       if (command == 'plbutton' || command == 'peoplegroupbutton' || command == 'rdioaction') {
       //
-      // PASS ANYTHING WITH A NAME PROPERTY
+      // CONFIG USING ANYTHING WITH A NAME PROPERTY
       // +++++++++++++++++++++++++++++++++++
 
         var $newElement = $('<div />', {
-          'class': 'button ' + command,
+          'class': 'button',
           'html': config.name,
         });
 
       // +++++++++++++++++++++++++++++++++++
       } else if (command == 'person') {
       //
-      // PASS AN RDIO USER
+      // CONFIG WITH AN RDIO USER
       // +++++++++++++++++++++++++++++++++++
 
         var $newElement = $('<div />', {
           'id': config.key,
-          'class': 'button ' + command,
+          'class': 'button',
           'html': config.username,
           'style':'background-image: url("' + config.icon + '")'
         });
@@ -36,12 +35,11 @@
       // +++++++++++++++++++++++++++++++++++
       } else if (command =='viewbox') {
       //
-      // PASS AN RDIO PLAYLIST
+      // CONFIG WITH AN RDIO PLAYLIST
       // +++++++++++++++++++++++++++++++++++
 
         var playlistName = config.name || 'No Title';
         var $newElement = $('<div />', {
-          'class': command,
           'html': '<div class="showcase">'
                     +'<div class="albumtitle"></div>'
                     +'<div class="caseleft"><div class="caseart"></div></div>'
@@ -54,11 +52,11 @@
       // +++++++++++++++++++++++++++++++++++
       } else if (command == 'albumthumb') {
       // 
-      // PASS AN RDIO ALBUM OBJECT
+      // CONFIG WITH AN RDIO ALBUM OBJECT
       // +++++++++++++++++++++++++++++++++++
 
         $newElement = $('<div />', {
-          'class': 'button ' + command,
+          'class': 'button',
           'id': config.albumKey,
           'style': 'background-image: url(' +config.icon + ')'
         });
@@ -66,7 +64,7 @@
       // +++++++++++++++++++++++++++++++++++
       } else if (command == 'track') {
       //
-      // PASS AN RDIO TRACK OBJECT
+      // CONFIG WITH AN RDIO TRACK OBJECT
       // +++++++++++++++++++++++++++++++++++
 
         var _name = config.name.replace(/\(/g, '<span>').replace(/\)/g, '</span>');
@@ -91,10 +89,11 @@
       // HERP DERP ON YOU!
       // +++++++++++++++++++++++++++++++++++
 
-        $newElement = $('div', {html: '[ViewMaker] Command not recognized'});
+        $newElement = $('div', {html: '[ViewMaker] Command: ' + cmd + ' not recognized'});
 
       } // ENDIF
 
+      $newElement.addClass(command);
       return $newElement;
     }
   };
