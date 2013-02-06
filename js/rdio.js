@@ -20,6 +20,8 @@
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
 
         } else {
+          self.get('TopCharts', '', 'Album', AV.Chooser.addButtons)
+          AV.Chooser.init();
           $('#authbutton').html('Click to authenticate with Rdio')
             .bind('click', function() {
               R.authenticate(self.authInit);
@@ -68,7 +70,7 @@
             content: {
               type: responseParam,
               count: 100,
-              extras: '-*,albumKey,album,icon,artistKey,artist,name'
+              extras: '-*,key,album,icon,artistKey,artist,name'
             },
             success: function(data) {
               var mockList = { 'key': call, 'name': call, 'albums': [] };

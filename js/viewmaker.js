@@ -57,7 +57,7 @@
 
         $newElement = $('<div />', {
           'class': 'button',
-          'id': config.albumKey,
+          'id': config.albumKey || config.key,
           'style': 'background-image: url(' +config.icon + ')'
         });
 

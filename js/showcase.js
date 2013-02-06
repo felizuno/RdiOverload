@@ -23,13 +23,13 @@
 
 
       var rdioKey = $(albumThumb).attr('id');
-      var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == rdioKey; });
+      var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == rdioKey || album.key == rdioKey; });
       var _artist = _albumData.artist;
 
       $('.caseright').children().add('.rdioaction').remove();
       
       self._addAlbumActions(_artist, rdioKey);
-      $('.albumtitle').text(_artist + ' - ' + _albumData.album);
+      $('.albumtitle').text(_artist + ' - ' + (_albumData.album || _albumData.name));
       $('.caseart').css('background-image', 'url(' + _albumData.icon.replace('-200.jpg', '-600.jpg'));
       //can this move?
       AV.Rdio.get('TracksForAlbum', rdioKey, 'tracks', self._addTrackList);

@@ -6,7 +6,6 @@
       R.ready(function(){
         self.Rdio.authInit();
         self.bindCloseButtons();
-        //self.Rdio.get('TopCharts', 'no key', 'Album', self.Chooser.addButtons)
         R.player.on('change:playingTrack', function(track) {
           self.Showcase.changePlayingTrack()
           var newTrack = track.attributes;
