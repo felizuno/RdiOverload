@@ -9,6 +9,7 @@
         if (R.authenticated()) {
           $('#authbutton').html('Dive in').unbind('click')
             .bind('click', function() {
+              AV.changeUser(R.currentUser.get('key'));
               AV.Chooser.init();
               $('#loginpanel').hide();
           });
