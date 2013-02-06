@@ -4,14 +4,7 @@
       var self = this;
 
       R.ready(function(){
-
         self.Rdio.authInit();
-        //
-        //
-        // THIS NEEDS TO BE FIXED. ONLY GONNA WORK IF YOU'RE ALREADY AUTHED
-        // MOVE TO THE RDIO AUTH INIT. IT'S TECHNICALLY AN RDIO CALL ANYWAY
-        self.changeUser(R.currentUser.get('key'));
-
         self.bindCloseButtons();
         //self.Rdio.get('TopCharts', 'no key', 'Album', self.Chooser.addButtons)
         R.player.on('change:playingTrack', function(track) {

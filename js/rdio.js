@@ -11,6 +11,10 @@
             .bind('click', function() {
               AV.changeUser(R.currentUser.get('key'));
               AV.Chooser.init();
+              // CHANGE THE PANEL CONTENT SO THE USER KNOWS SOEMTHING
+              // HAPPENED. GIVE INSTRUCTIONS FOR HOW TO USE THE CHOOSER
+              // ALSO GOING TO HAVE TO RENAME THE PANEL  NOW THAT It
+              // HAS THIS OTHER USE
               $('#loginpanel').hide();
           });
           $('.peoplebutton').text(R.currentUser.get('vanityName'));
