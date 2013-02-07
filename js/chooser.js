@@ -14,6 +14,7 @@
       });
       $('.chooseraction').bind('click', function() {
         AV.changeList(self.getCurrentChoice());
+        self.showHide()
       });
       $('#authbutton').unbind('click').bind('click', function() {
         $('#loginpanel').hide();
@@ -42,11 +43,6 @@
             }).appendTo('#playlistmenu');
         });
       } else if (key == 'TopCharts' || key == 'HeavyRotation') {
-
-        // ++++
-        // I THINK THIS IS PART OF WHY THESE LISTS ARE BORKED
-        // ++++
-
         ViewMaker.make('plbutton', lists[0])
           .bind('click', function() {
             AV.Chooser.toggleChosen(this);
