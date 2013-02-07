@@ -5,10 +5,7 @@
 @wh: #F2F2F2;
 
 .showcase {
-  background-color: rgba(255, 255, 255, 0.12);
-  padding: 20px;
-  margin-bottom: 10px;
-  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.75);
 
   .albumtitle {
     margin-bottom: 20px;
@@ -22,6 +19,7 @@
 
   .caseleft {
     float: left;
+    margin-left: 20px;
 
     .caseart {
       background-size: contain;
@@ -31,9 +29,10 @@
   }
 
   .caseright {
-    height: 500px;
-    min-width: 400px;
+    height: 430px;
+    min-width: 380px;
     overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
     color: @wh;
 
     :nth-child(even) {
@@ -88,14 +87,12 @@
   }
 
   .caseart {
-    height: 250px;
-    width: 250px;
+    height: 300px;
+    width: 300px;
   }
 
   .caseright {
-    display: inline-block;
-    height: 250px;
-    width: 55%;
+    height: 220px;
     overflow: auto;
     color: @wh;
     font-size: 11px;
@@ -107,6 +104,8 @@
 
   .rdioaction {
     float: none;
+    display: inline-block;
+    margin-bottom: 20px;
   }
 }
 

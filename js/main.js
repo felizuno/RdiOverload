@@ -56,6 +56,7 @@
       var newList = this.Rdio.pluckFromMasterLists(newListName);      
       this._removeCurrentList();
       ViewMaker.make('viewbox', newList.data).appendTo('#maincontent');
+      this.bindCloseButtons();
       AV.Showcase.newShowcase(newList);
     },
 

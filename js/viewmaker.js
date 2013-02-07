@@ -40,8 +40,8 @@
 
         var playlistName = config.name || 'No Title';
         var $newElement = $('<div />', {
-          'html': '<div class="showcase small" style="display:none;">'
-                    +'<div class="albumtitle"></div>'
+          'html': '<div class="showcase panel" style="display:none;">'
+                    +'<div class="titlecontainer"><div class="close button">[ CLOSE ]</div><div class="albumtitle"></div></div>'
                     +'<div class="caseleft"><div class="caseart"></div></div>'
                     +'<div class="caseright"></div>'
                     +'<div class="casecommands"></div></div>'
