@@ -7,6 +7,7 @@
       _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
           //$('.ui-effects-transfer').css('background-color: #fff');//'background-image: url("' + $(albumThumb).attr('href') + '")');
+          $('.showcase').slideDown('1000');
           $(this)
             .effect(
               'transfer', { to: $('.caseart') }, 250,
@@ -26,6 +27,7 @@
       var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == rdioKey || album.key == rdioKey; });
       var _artist = _albumData.artist;
 
+      // $('.albumgrid').slideDown('1000').hide();
       $('.caseright').children().add('.rdioaction').remove();
       
       self._addAlbumActions(_artist, rdioKey);

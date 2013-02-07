@@ -1,4 +1,5 @@
 ## TODO
+* Artist bios don't scroll
 * Drag a song on to the chooser to add it to a playlist
 * Drag the album art on to the chooser to add it to a playlist
 * Play plays the track but lists the album as the playing source (so the next song is the next track on the album)
