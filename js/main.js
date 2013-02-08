@@ -48,7 +48,7 @@
       this.Rdio.get('UserPlaylists', userKey, 100, AV.Chooser.addButtons);
       this.Rdio.get('HeavyRotation', userKey, 'albums', AV.Chooser.addButtons);
       this.Rdio.get('Following', userKey, 200, AV.UserPanel.addPeopleGroup);
-      this.Rdio.get('Followers', userKey, 200, AV.UserPanel.addPeopleGroup);
+      // this.Rdio.get('Followers', userKey, 200, AV.UserPanel.addPeopleGroup);
       $('#userpanel').hide();
     },
 

@@ -46,7 +46,7 @@
                     +'<div class="caseright"></div>'
                     +'<div class="casecommands"></div></div>'
                   +'<div class="listtitle">' + playlistName + '</div>'
-                  +'<div class="albumgrid"></div>'
+                  +'<div class="albumgrid panel"></div>'
         });
 
       // +++++++++++++++++++++++++++++++++++
