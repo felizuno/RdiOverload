@@ -10,27 +10,45 @@
       ViewMaker.make('showcase', data).appendTo('#maincontent');
 
       _.each(masterListObject.data.albums, function(v, i) {
+        var bio;
+        var iconUrl;
+        var url = 'http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' 
+          + v.artist
+          + '&api_key=d43e672a5af20763d43866fcbbf2d201&format=json&callback=?';
+
         ViewMaker.make('albumthumb', v).bind('click', function() {
           $('.showcase').slideDown('1000');
           $(this)
             .effect(
               'transfer', { to: $('.caseart') }, 250,
               //callback for effect
-              self.changeFeaturedAlbum(this, masterListObject)
-            );
+              self.changeFeatured(this, masterListObject)
+            )
          // window.scrollTo(0, 0);
         }).appendTo('.albumgrid');
 
-        ViewMaker.make('artistthumb', v).bind('click', function() { // NEED TO ADD TO VIEWMAKER
-          $('.showcase').slideDown('1000');
-          $(this)
-            .effect(
-              'transfer', { to: $('.caseart') }, 250,
-              //callback for effect
-              self.changeFeatured(this, masterListObject)
-            );
-         // window.scrollTo(0, 0);
-        }).appendTo('.albumgrid');
+        $.getJSON(url, function(data) {
+          iconUrl = data.artist.image[3]['#text'];
+          //console.log(iconUrl);
+          bio = data.artist.bio.content.replace(/<a/gi, '<a target="_blank"');
+     
+          var config = {
+            'artist': v.artist,
+            'icon': iconUrl,
+            'bio': bio
+          };
+
+          ViewMaker.make('artistthumb', config).bind('click', function() { // NEED TO ADD TO VIEWMAKER
+            $('.showcase').slideDown('1000');
+            $(this)
+              .effect(
+                'transfer', { to: $('.caseart') }, 250,
+                //callback for effect
+                self.changeFeatured(this, masterListObject)
+              );
+           // window.scrollTo(0, 0);
+          }).appendTo('.artistgrid');
+        });
       });
 
       if (_.isFunction(callback)) { callback(); }
@@ -41,8 +59,7 @@
       var trigger = $(thumb);
 
       if (trigger.hasClass("albumthumb")) {
-        var $albumThumb = thumb;
-        var rdioKey = $albumThumb.attr('id');
+        var rdioKey = trigger.attr('id');
         var _albumData = _.find(masterListObject.data.albums, function(album) { return album.albumKey == rdioKey || album.key == rdioKey; });
         var _artist = _albumData.artist;
 
