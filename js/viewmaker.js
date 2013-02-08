@@ -21,23 +21,6 @@
         });
 
       // +++++++++++++++++++++++++++++++++++
-      } else if (command =='panel') {
-      //
-      // CONFIG WITH OH FFS!
-      // +++++++++++++++++++++++++++++++++++
-        var playlistName = config.name || 'No Title';
-
-        $newElement = $('<div />', {
-          'html': '<div class="showcase panel" style="display:none;">'
-                    +'<div class="titlecontainer"><div class="close button">[ CLOSE ]</div><div class="albumtitle"></div></div>'
-                    +'<div class="caseleft"><div class="caseart"></div></div>'
-                    +'<div class="caseright"></div>'
-                    +'<div class="casecommands"></div></div>'
-                  +'<div class="listtitle">' + playlistName + '</div>'
-                  +'<div class="albumgrid panel"></div>'
-        });
-
-      // +++++++++++++++++++++++++++++++++++
       } else if (command == 'person') {
       //
       // CONFIG WITH AN RDIO USER
@@ -67,16 +50,32 @@
         });
 
       // +++++++++++++++++++++++++++++++++++
-      } else if (command =='albumgrid') {
+      } else if (command =='albumpanel') {
       //
       // CONFIG WITH AN RDIO PLAYLIST
       // +++++++++++++++++++++++++++++++++++
 
         var playlistName = config.name || 'No Title';
         $newElement = $('<div />', {
-          'html':'<div class="album panel" style="display:none;">'
-                    +'<div class="titlecontainer"><div class="listtitle">' + playlistName + '</div></div>'
-                    +'<div class="albumgrid></div>'
+          'class': 'panel',
+          'style': 'display: none',
+          'html': '<div class="titlecontainer"><div class="listtitle">' + playlistName + '</div></div>'
+                    +'<div class="albumgrid"></div>'
+                  +'</div>'
+        });
+
+      // +++++++++++++++++++++++++++++++++++
+      } else if (command =='artistpanel') {
+      //
+      // CONFIG WITH AN RDIO PLAYLIST
+      // +++++++++++++++++++++++++++++++++++
+
+        var playlistName = config.name || 'No Title';
+        $newElement = $('<div />', {
+          'class': 'panel',
+          'style': 'display: none',
+          'html': '<div class="titlecontainer"><div class="listtitle">' + playlistName + '</div></div>'
+                    +'<div class="artistgrid"></div>'
                   +'</div>'
         });
 
@@ -89,6 +88,18 @@
         $newElement = $('<div />', {
           'class': 'button',
           'id': config.albumKey || config.key,
+          'style': 'background-image: url(' +config.icon + ')'
+        });
+
+      // +++++++++++++++++++++++++++++++++++
+      } else if (command == 'artistthumb') {
+      // 
+      // CONFIG WITH AN RDIO ALBUM OBJECT
+      // +++++++++++++++++++++++++++++++++++
+
+        $newElement = $('<div />', {
+          'class': 'button',
+          'id': config.artist,
           'style': 'background-image: url(' +config.icon + ')'
         });
 

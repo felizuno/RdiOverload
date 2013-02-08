@@ -58,8 +58,8 @@
       
       if (command == 'album') {
         AV.Showcase.newShowcase(newList, function() {
-          $('.albumgrid').show();
-        this.bindCloseButtons();
+          $('.albumpanel').show();
+          AV.bindCloseButtons();
         });        
       } else if (command == 'artist') {
         // Make a panel with an artist grid
@@ -80,7 +80,7 @@
     },
 
     _removeCurrentList: function() {
-      $('.viewbox').remove();
+      $('#maincontent').children().remove();
     }
   };
 
