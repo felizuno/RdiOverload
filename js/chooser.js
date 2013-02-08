@@ -13,7 +13,9 @@
         });
       });
       $('.chooseraction').bind('click', function() {
-        AV.changeList(self.getCurrentChoice());
+        var cmd = ($(this).hasClass('albumgo') ? 'album' : 'artist');
+        console.log(cmd);
+        AV.changeList(cmd, self.getCurrentChoice());
         self.showHide()
       });
       $('#authbutton').unbind('click').bind('click', function() {

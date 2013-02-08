@@ -52,12 +52,18 @@
       $('#userpanel').hide();
     },
 
-    changeList: function (newListName) {
-      var newList = this.Rdio.pluckFromMasterLists(newListName);      
+    changeList: function (command, newListName) {
+      var newList = this.Rdio.pluckFromMasterLists(newListName);
       this._removeCurrentList();
-      ViewMaker.make('viewbox', newList.data).appendTo('#maincontent');
-      this.bindCloseButtons();
-      AV.Showcase.newShowcase(newList);
+      
+      if (command == 'album') {
+        AV.Showcase.newShowcase(newList, function() {
+          $('.albumgrid').show();
+        this.bindCloseButtons();
+        });        
+      } else if (command == 'artist') {
+        // Make a panel with an artist grid
+      }
     },
 
     showBio: function(artist) {

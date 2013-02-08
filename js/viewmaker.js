@@ -1,6 +1,7 @@
 (function() {
   window.ViewMaker = {
     make: function(cmd, config) {
+      var $newElement;
       // CONFIG MUST BE AN OBJECT (USUALLY WITH A NAME)
       if (!_.isObject(config)) {
         $newElement = $('div', {html: '[ViewMaker] Config for ' + cmd + ' should be an object'});
@@ -14,9 +15,26 @@
       // CONFIG USING ANYTHING WITH A NAME PROPERTY
       // +++++++++++++++++++++++++++++++++++
 
-        var $newElement = $('<div />', {
+        $newElement = $('<div />', {
           'class': 'button',
           'html': config.name,
+        });
+
+      // +++++++++++++++++++++++++++++++++++
+      } else if (command =='panel') {
+      //
+      // CONFIG WITH OH FFS!
+      // +++++++++++++++++++++++++++++++++++
+        var playlistName = config.name || 'No Title';
+
+        $newElement = $('<div />', {
+          'html': '<div class="showcase panel" style="display:none;">'
+                    +'<div class="titlecontainer"><div class="close button">[ CLOSE ]</div><div class="albumtitle"></div></div>'
+                    +'<div class="caseleft"><div class="caseart"></div></div>'
+                    +'<div class="caseright"></div>'
+                    +'<div class="casecommands"></div></div>'
+                  +'<div class="listtitle">' + playlistName + '</div>'
+                  +'<div class="albumgrid panel"></div>'
         });
 
       // +++++++++++++++++++++++++++++++++++
@@ -25,7 +43,7 @@
       // CONFIG WITH AN RDIO USER
       // +++++++++++++++++++++++++++++++++++
 
-        var $newElement = $('<div />', {
+        $newElement = $('<div />', {
           'id': config.key,
           'class': 'button',
           'html': config.username,
@@ -33,20 +51,33 @@
         });
 
       // +++++++++++++++++++++++++++++++++++
-      } else if (command =='viewbox') {
+      } else if (command =='showcase') {
       //
       // CONFIG WITH AN RDIO PLAYLIST
       // +++++++++++++++++++++++++++++++++++
 
         var playlistName = config.name || 'No Title';
-        var $newElement = $('<div />', {
+        $newElement = $('<div />', {
           'html': '<div class="showcase panel" style="display:none;">'
                     +'<div class="titlecontainer"><div class="close button">[ CLOSE ]</div><div class="albumtitle"></div></div>'
                     +'<div class="caseleft"><div class="caseart"></div></div>'
                     +'<div class="caseright"></div>'
-                    +'<div class="casecommands"></div></div>'
-                  +'<div class="listtitle">' + playlistName + '</div>'
-                  +'<div class="albumgrid panel"></div>'
+                    +'<div class="casecommands"></div>'
+                  +'</div>'
+        });
+
+      // +++++++++++++++++++++++++++++++++++
+      } else if (command =='albumgrid') {
+      //
+      // CONFIG WITH AN RDIO PLAYLIST
+      // +++++++++++++++++++++++++++++++++++
+
+        var playlistName = config.name || 'No Title';
+        $newElement = $('<div />', {
+          'html':'<div class="album panel" style="display:none;">'
+                    +'<div class="titlecontainer"><div class="listtitle">' + playlistName + '</div></div>'
+                    +'<div class="albumgrid></div>'
+                  +'</div>'
         });
 
       // +++++++++++++++++++++++++++++++++++
@@ -77,7 +108,7 @@
         }
         _duration = '( ' + _min + ':' + _sec + ' )';
 
-        var $newElement = $('<div />', {
+        $newElement = $('<div />', {
           'class': 'button ' + command,
           'id': config.key,
           'html': config.trackNum + '. ' + config.artist + ' - ' + _name + '   ' + _duration

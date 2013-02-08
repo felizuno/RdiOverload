@@ -3,6 +3,8 @@
 
     newShowcase: function(masterListObject) {
       var self = this;
+      ViewMaker.make('albumgrid', masterListObject.data).appendTo('#maincontent');
+      ViewMaker.make('showcase', masterListObject.data).appendTo('#maincontent');
 
       _.each(masterListObject.data.albums, function(v, i) {
         ViewMaker.make('albumthumb', v).bind('click', function() {
@@ -14,7 +16,7 @@
               //callback for effect
               self.changeFeaturedAlbum(this, masterListObject)
             );
-          window.scrollTo(0, 0);
+         // window.scrollTo(0, 0);
         }).appendTo('.albumgrid');
       });
     },
