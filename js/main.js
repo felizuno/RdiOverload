@@ -22,6 +22,10 @@
       $('#help, #nowplaying').bind('click', function() {
         $(this).children().slideToggle();
       });
+
+      $('.playpause').bind('click', function() {
+        AV.Rdio.player('playpause');
+      });
     },
 
     toggleBetween: function(a, b, coords) {
