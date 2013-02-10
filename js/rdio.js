@@ -113,6 +113,11 @@
         R.player.play({source: key});
         
         // ----------
+      } else if (call == 'playpause') {
+        // ----------
+        R.player.togglePause();
+        
+        // ----------
       } else if (call == 'queue') {
         // ----------
         R.player.queue.add(key);
