@@ -46,7 +46,6 @@
                 //callback for effect
                 self.changeFeatured(this, masterListObject)
               );
-           // window.scrollTo(0, 0);
           }).appendTo('.artistgrid');
         });
       });
@@ -108,6 +107,7 @@
       var sc = AV.Showcase;
       _.each(album.tracks, function(v, i) {
           ViewMaker.make('track', v).bind('click', function() {
+            //Should consider using the abum key and the track index?
             R.player.play({source: $(this).attr('id')});
           }).appendTo('.caseright');
       });

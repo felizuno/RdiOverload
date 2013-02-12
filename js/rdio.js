@@ -31,7 +31,8 @@
     },
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+ //Should this move inside the master list object as a method?
+ 
     pluckFromMasterLists: function(name) {
       var list = _.find(this.masterLists, function(v) {return v.data.name == name;});
       return list;
@@ -98,6 +99,7 @@
           }
         });
       } else {
+        // this is for when the call is not recognized
         console.log('You can\'t Rdio.get ' + call + '. Key is: ' + key);
       }
     },
