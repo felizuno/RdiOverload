@@ -38,7 +38,7 @@
             'bio': bio
           };
 
-          ViewMaker.make('artistthumb', config).bind('click', function() { // NEED TO ADD TO VIEWMAKER
+          ViewMaker.make('artistthumb', config).bind('click', function() {
             $('.showcase').slideDown('1000');
             $(this)
               .effect(
@@ -64,7 +64,7 @@
         var _artist = _albumData.artist;
 
         // $('.albumgrid').slideDown('1000').hide();
-        $('.caseright').children().add('.rdioaction').remove();
+        $('.caseright').children().add('.rdioaction').remove();// Do I need to add the rdioaction?
         
         self._addAlbumActions(_artist, rdioKey);
         $('.albumtitle').text(_artist + ' - ' + (_albumData.album || _albumData.name));
