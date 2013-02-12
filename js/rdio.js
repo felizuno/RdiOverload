@@ -64,9 +64,9 @@
     // ---------------------
       } else if (call == 'TopCharts' || call == "HeavyRotation" ) {
     // --------------------- 
-        R.ready(function() {      // CURRENTLY BROKEN, ON DISPLAY IT SHOWS ALBUMS
-          R.request({             // BUT IS ONLY CAPABLE OF SHOWING THE FIRST ALBUM
-            method: _method,      // AND CAN'T SHOW IT'S TRACKS OR CHANGE ALBUMS
+        R.ready(function() {
+          R.request({
+            method: _method,
             content: {
               type: responseParam,
               count: 100,
