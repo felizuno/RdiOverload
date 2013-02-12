@@ -45,7 +45,7 @@
             }).appendTo('#playlistmenu');
         });
       } else if (key == 'following') {
-        ViewMaker.make('peoplebutton', v.data)
+        ViewMaker.make('peoplebutton', lists)//should pass something better, needs a .name
           .bind('click', function() {
             AV.Chooser.toggleChosen(this);
           }).appendTo('#peoplemenu');

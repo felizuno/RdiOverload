@@ -23,7 +23,7 @@
       //    data (an array of objects, each of which has a 'key' property)
       //    owner (the Rdio key of the user whose peopleGroup this is)
       self.groups.push(people);
-      AV. Chooser.addButtons('peoplebutton', masterLists);
+      AV. Chooser.addButtons('following', masterLists);
       self.showPeopleGroup(people);
       // ViewMaker.make('peoplebutton', lists[0]).bind('click', function() {
       //   AV.Chooser.toggleChosen(this);
