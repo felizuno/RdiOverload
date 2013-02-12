@@ -44,6 +44,11 @@
               AV.Chooser.toggleChosen(this);
             }).appendTo('#playlistmenu');
         });
+      } else if (key == 'following') {
+        ViewMaker.make('peoplebutton', v.data)
+          .bind('click', function() {
+            AV.Chooser.toggleChosen(this);
+          }).appendTo('#peoplemenu');
       } else if (key == 'TopCharts' || key == 'HeavyRotation') {
         ViewMaker.make('plbutton', lists[0])
           .bind('click', function() {

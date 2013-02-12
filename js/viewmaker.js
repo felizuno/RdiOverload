@@ -10,7 +10,7 @@
 
       // +++++++++++++++++++++++++++++++++++
       var command = cmd.toLowerCase();
-      if (command == 'plbutton' || command == 'peoplegroupbutton' || command == 'rdioaction') {
+      if (command == 'plbutton' || command == 'peoplebutton' || command == 'rdioaction') {
       //
       // CONFIG USING ANYTHING WITH A NAME PROPERTY
       // +++++++++++++++++++++++++++++++++++
