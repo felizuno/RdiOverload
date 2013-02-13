@@ -26,6 +26,18 @@
       $('.playpause').bind('click', function() {
         AV.Rdio.player('playpause');
       });
+
+      $('.rdioback').bind('click', function() {
+        AV.Rdio.player('back');
+      });
+      
+      $('.rdioforward').bind('click', function() {
+        AV.Rdio.player('nextFromQueue');
+      });
+
+      $('.queuenext').bind('click', function() {
+        AV.Rdio.player('nextFromQueue', {'index': 1});
+      });
     },
 
     toggleBetween: function(a, b, coords) {

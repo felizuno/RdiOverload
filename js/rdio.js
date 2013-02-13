@@ -106,30 +106,38 @@
     
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
-    player: function(call, key, callback) {
-      
-      if (call == 'play') {
-        // ----------
+    player: function(call, config, callback) {
+      console.log(config);
+      var key = (config) ? config.key : 'none';
+      var queueIndex = (config) ? config.index : 0;
+
+      // ----------
+      if (call == 'play' && key != 'none') {
         var _k = key[0];
         if (_k == 'a' || _k == 'ca') { R.player.queue.addPlayingSource(); }
         R.player.play({source: key});
         
-        // ----------
+      // ----------
       } else if (call == 'playpause') {
-        // ----------
+      // ----------
         R.player.togglePause();
         
-        // ----------
+      // ----------
+      } else if (call == 'back') {
+      // ----------
+        R.player.previous();
+        
+      // ----------
       } else if (call == 'queue') {
-        // ----------
+      // ----------
         R.player.queue.add(key);
         
-        // ----------
-      } else if (call == 'queueNext') {
-        if (key == '') {
-          // IF THERE WAS NO KEY THEN PLAY THE NEXT THING IN THE QUEUE
+      // ----------
+      } else if (call == 'nextFromQueue') {
+        if (!config || !config.index) {
+          R.player.next();
         } else {
-          // IF KEY IS A REAL KEY (FORMAT CHECK) THEN 
+          R.player.queue.play(queueIndex);          
         }
       }
     },
